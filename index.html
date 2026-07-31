@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatGPT Business 導入計畫</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
+  :root {
+    --green: #10a37f;
+    --green-light: #e8f5f0;
+    --green-dark: #0d8a6a;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555;
+    --text-muted: #999;
+    --bg: #ffffff;
+    --bg-subtle: #f7f8fa;
+    --border: #e5e7eb;
+    --border-light: #f0f0f0;
+  }
+  html { font-size: 150%; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans TC', -apple-system, sans-serif; background: var(--bg); color: var(--text-primary); line-height: 1.7; font-size: 1rem; }
+
+  .header { background: var(--text-primary); padding: 2.5rem 1.5rem 1.8rem; text-align: center; position: relative; }
+  .header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--green); }
+  .header-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.25rem 0.75rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 1.2rem; font-size: 0.625rem; font-weight: 500; color: rgba(255,255,255,0.6); margin-bottom: 1rem; letter-spacing: 2px; }
+  .header-badge i { color: var(--green); font-size: 0.75rem; }
+  .header h1 { font-size: 1.6rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+  .header-sub { font-size: 0.875rem; color: rgba(255,255,255,0.55); max-width: 30rem; margin: 0 auto; font-weight: 300; }
+  .header-kv { display: inline-block; margin-top: 1rem; padding: 0.5rem 1.2rem; background: var(--green); border-radius: 0.35rem; font-size: 0.8rem; font-weight: 600; color: #fff; }
+
+  .tab-container { position: sticky; top: 0; z-index: 100; background: var(--green-dark); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tab-container::-webkit-scrollbar { display: none; }
+  .tab-list { display: flex; max-width: 960px; margin: 0 auto; min-width: max-content; }
+  .tab-btn { flex: 1; min-width: 0; padding: 0.75rem 0.8rem; border: none; background: none; font-family: 'Noto Sans TC', sans-serif; font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.6); cursor: pointer; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s, background 0.2s; white-space: nowrap; text-align: center; }
+  .tab-btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+  .tab-btn.active { color: #fff; font-weight: 700; border-bottom-color: #fff; background: rgba(255,255,255,0.1); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .content-area { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+
+  .section-label { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; color: var(--green); margin-bottom: 0.8rem; }
+
+  /* TAB 1 */
+  .purpose-section { margin-bottom: 2.2rem; }
+  .purpose-section:last-child { margin-bottom: 0; }
+  .purpose-text { font-size: 0.875rem; line-height: 1.9; color: var(--text-secondary); }
+  .purpose-text strong { color: var(--text-primary); }
+  .goal-grid { display: grid; gap: 0.7rem; }
+  .goal-card { display: flex; align-items: flex-start; gap: 0.8rem; padding: 1rem; border: 1px solid var(--border); border-radius: 0.5rem; }
+  .goal-card:hover { border-color: var(--green); }
+  .goal-icon { width: 2rem; height: 2rem; border-radius: 0.4rem; background: var(--green-light); color: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.75rem; }
+  .goal-label { font-size: 0.625rem; font-weight: 600; color: var(--green); margin-bottom: 0.1rem; letter-spacing: 1px; }
+  .goal-text { font-size: 0.812rem; font-weight: 500; }
+  .consider-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+  .consider-table th { text-align: left; padding: 0.55rem 0.75rem; background: var(--text-primary); color: #fff; font-weight: 500; font-size: 0.688rem; letter-spacing: 0.5px; }
+  .consider-table th:first-child { border-radius: 0.35rem 0 0 0; }
+  .consider-table th:last-child { border-radius: 0 0.35rem 0 0; }
+  .consider-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+  .consider-table tr:last-child td { border-bottom: none; }
+  .consider-table tr:nth-child(even) { background: var(--bg-subtle); }
+  .consider-table td:first-child { font-weight: 500; white-space: nowrap; }
+  .consider-table td:last-child { color: var(--text-secondary); }
+
+  /* TAB 2 */
+  .reason-cards { display: grid; gap: 0.8rem; margin-bottom: 2rem; }
+  .reason-card { padding: 1.2rem; border: 1px solid var(--border); border-radius: 0.6rem; text-align: center; }
+  .reason-card:hover { border-color: var(--green); box-shadow: 0 2px 8px rgba(16,163,127,0.06); }
+  .reason-card-icon { width: 2.5rem; height: 2.5rem; border-radius: 50%; margin: 0 auto 0.7rem; display: flex; align-items: center; justify-content: center; font-size: 1rem; background: var(--green); color: #fff; }
+  .reason-card h3 { font-size: 0.938rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .reason-card p { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.6; }
+  .compare-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.6rem; text-align: center; letter-spacing: 1px; }
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+  .compare-table thead th { padding: 0.55rem 0.6rem; font-weight: 600; text-align: center; font-size: 0.688rem; border-bottom: 2px solid var(--text-primary); }
+  .compare-table thead th:first-child { text-align: left; }
+  .compare-table thead th:last-child { color: var(--green); }
+  .compare-table td { padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border-light); text-align: center; color: var(--text-secondary); }
+  .compare-table td:first-child { text-align: left; font-weight: 500; color: var(--text-primary); }
+  .compare-table .check { color: var(--green); font-weight: 500; }
+  .compare-table .cross { color: #ccc; }
+  .compare-table .highlight-row { background: var(--green-light); }
+
+  /* TAB 3 */
+  .team-intro { font-size: 0.812rem; color: var(--text-muted); text-align: center; margin-bottom: 1.2rem; }
+  .tdb-badge { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.6rem 0.25rem 0.3rem; margin-right: 0.5rem; background: #f7f8fa; border: 1px solid var(--border); border-radius: 0.4rem; font-size: 0.812rem; font-weight: 700; color: #1a1a1a; text-decoration: none; letter-spacing: 1px; vertical-align: middle; transition: border-color 0.2s, background 0.2s; }
+  .tdb-badge:hover { border-color: #3b5bdb; background: #eef2ff; }
+  .tdb-icon { width: 1.3rem; height: 1.3rem; border-radius: 0.3rem; background: #3b5bdb; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 0.625rem; }
+  .team-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+  .team-card { display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 0.7rem; border: 1px solid var(--border-light); border-radius: 0.5rem; }
+  .team-card:hover { border-color: var(--green); }
+  .team-card.admin { border-left: 3px solid var(--green); background: var(--green-light); }
+  .team-card.it { border-left: 3px solid #f59e0b; background: #fffbeb; }
+  .team-num { width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--bg-subtle); color: var(--text-muted); font-size: 0.625rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .team-card.admin .team-num { background: var(--green); color: #fff; }
+  .team-card.it .team-num { background: #f59e0b; color: #fff; }
+  .team-name { font-size: 0.812rem; font-weight: 600; }
+  .team-role { font-size: 0.625rem; color: var(--green); font-weight: 500; }
+  .team-dept { font-size: 0.625rem; color: var(--text-muted); }
+  .team-cost { margin-top: 1rem; text-align: center; padding: 0.7rem; border: 1px solid var(--green); border-radius: 0.5rem; font-size: 0.812rem; color: var(--green-dark); background: var(--green-light); }
+
+  /* TAB 4 */
+  .timeline { position: relative; padding-left: 1.5rem; }
+  .timeline::before { content: ''; position: absolute; left: 0.4rem; top: 0.5rem; bottom: 0.5rem; width: 2px; background: var(--border); }
+  .tl-item { position: relative; margin-bottom: 1.8rem; }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-dot { position: absolute; left: -1.5rem; top: 0.3rem; width: 0.9rem; height: 0.9rem; border-radius: 50%; background: var(--bg); border: 2px solid var(--border); z-index: 1; }
+  .tl-item.major .tl-dot { width: 1rem; height: 1rem; background: var(--green); border-color: var(--green); left: -1.55rem; }
+  .tl-item.final .tl-dot { background: var(--text-primary); border-color: var(--text-primary); }
+  .tl-date { font-size: 0.688rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.1rem; }
+  .tl-item.major .tl-date { color: var(--green); font-size: 0.875rem; }
+  .tl-title { font-size: 0.875rem; font-weight: 500; margin-bottom: 0.15rem; }
+  .tl-item.major .tl-title { font-weight: 700; font-size: 0.938rem; }
+  .tl-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; }
+  .tl-tag { display: inline-block; padding: 0.1rem 0.4rem; border-radius: 0.25rem; font-size: 0.625rem; font-weight: 600; margin-top: 0.3rem; letter-spacing: 0.5px; }
+  .tl-tag.prep { background: var(--bg-subtle); color: var(--text-muted); }
+  .tl-tag.go { background: var(--green); color: #fff; }
+  .tl-tag.review { background: var(--green-light); color: var(--green-dark); }
+  .tl-tag.full { background: var(--text-primary); color: #fff; }
+
+  /* TAB 5 */
+  .action-intro { font-size: 0.812rem; color: var(--text-muted); text-align: center; margin-bottom: 1.2rem; }
+  .action-steps { display: grid; gap: 0.8rem; margin-bottom: 1.5rem; }
+  .action-step { display: flex; gap: 0.8rem; padding: 1rem; border: 1px solid var(--border); border-radius: 0.6rem; align-items: flex-start; }
+  .action-step:hover { border-color: var(--green); }
+  .step-num { width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 700; color: #fff; flex-shrink: 0; background: var(--green); }
+  .step-title { font-size: 0.875rem; font-weight: 600; margin-bottom: 0.2rem; }
+  .step-desc { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.7; }
+  .step-meta { margin-top: 0.3rem; font-size: 0.625rem; color: var(--text-muted); font-weight: 500; }
+  .step-meta i { color: var(--green); margin-right: 0.2rem; }
+  .action-note { padding: 0.8rem 1rem; background: var(--bg-subtle); border-left: 3px solid var(--green); border-radius: 0 0.5rem 0.5rem 0; font-size: 0.75rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem; }
+  .action-note strong { color: var(--text-primary); }
+  .it-section { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light); }
+  .it-tasks { display: grid; gap: 0.5rem; }
+  .it-task { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.8rem; background: #fffbeb; border-left: 3px solid #f59e0b; border-radius: 0 0.4rem 0.4rem 0; font-size: 0.75rem; color: var(--text-secondary); }
+  .it-task i { color: #f59e0b; font-size: 0.688rem; }
+
+  /* TAB 6 */
+  .faq-item { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border-light); }
+  .faq-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .faq-answer { margin-top: 0.4rem; }
+  .faq-answer p { font-size: 0.812rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 0.8rem; }
+  .faq-points { display: grid; gap: 0.6rem; }
+  .faq-point { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.7rem 0.8rem; border: 1px solid var(--border-light); border-radius: 0.5rem; font-size: 0.75rem; color: var(--text-secondary); line-height: 1.6; }
+  .faq-point strong { color: var(--text-primary); display: block; margin-bottom: 0.1rem; }
+  .faq-point-icon { width: 1.5rem; height: 1.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.625rem; color: #fff; }
+  .faq-point-icon.good { background: var(--green); }
+  .faq-point-icon.warn { background: #f59e0b; }
+  .faq-point-icon.info { background: #3b82f6; }
+  .faq-rules { display: grid; gap: 0.4rem; }
+  .faq-rule { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.8rem; background: var(--bg-subtle); border-radius: 0.5rem; font-size: 0.75rem; color: var(--text-secondary); }
+  .rule-num { width: 1.3rem; height: 1.3rem; border-radius: 50%; background: var(--green); color: #fff; font-size: 0.625rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  .footer { text-align: center; padding: 1.2rem; font-size: 0.688rem; color: var(--text-muted); border-top: 1px solid var(--border-light); }
+
+  @media (max-width: 600px) {
+    .header { padding: 2rem 1rem 1.5rem; }
+    .header h1 { font-size: 1.3rem; }
+    .content-area { padding: 1.5rem 1rem 2.5rem; }
+    .team-grid { grid-template-columns: 1fr; }
+    .tab-btn { padding: 0.65rem 0.5rem; font-size: 0.688rem; }
+    .reason-card { padding: 0.8rem; }
+  }
+  @media (min-width: 601px) and (max-width: 900px) {
+    .team-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 601px) {
+    .reason-cards { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge"><i class="fas fa-robot"></i> BENESSE CORPORATION TAIPEI OFFICE</div>
+  <h1>ChatGPT Business 導入計畫</h1>
+  <p class="header-sub">個人訂閱 → 公司統一管理，從種子團隊開始</p>
+  <div class="header-kv">9/1 起 15 人種子先行 → 驗證後全面導入 51 人</div>
+</div>
+
+<div class="tab-container">
+  <div class="tab-list">
+    <button class="tab-btn active" data-tab="overview">計畫概要</button>
+    <button class="tab-btn" data-tab="why">為什麼要轉換</button>
+    <button class="tab-btn" data-tab="team">種子團隊</button>
+    <button class="tab-btn" data-tab="timeline">重點時程</button>
+    <button class="tab-btn" data-tab="faq">資安與使用規範</button>
+    <button class="tab-btn" data-tab="action">行動指引</button>
+  </div>
+</div>
+
+<!-- TAB 1 -->
+<div class="tab-content active" id="tab-overview">
+  <div class="content-area">
+    <div class="purpose-section">
+      <div class="section-label"><i class="fas fa-bullseye"></i> 目的</div>
+      <p class="purpose-text">把目前全公司「各自用個人 Gmail 自費訂閱 ChatGPT Plus」的散亂狀態，轉為「公司用 @mail.benesse.com.tw 統一管理的 ChatGPT Business」。大家本來就在用了，核心不是導入新工具，<strong>而是把已經在用的工具從個人模式升級為公司管理模式。</strong></p>
+    </div>
+    <div class="purpose-section">
+      <div class="section-label"><i class="fas fa-project-diagram"></i> 8TDB 專案的實務需求</div>
+      <p class="purpose-text">8TDB 為公司自主開發的企劃製作系統，內含商品知識庫、會員數據與企劃資料。同仁需透過 Codex 或 Claude 等 AI 工具與 8TDB 協作。<strong>目前使用的是個人訂閱帳號，代表公司業務系統正被個人帳號存取，公司無法管理。</strong>導入 ChatGPT Business 後，所有與 8TDB 協作的帳號皆納入公司管理，符合資安要求。</p>
+    </div>
+    <div class="purpose-section">
+      <div class="section-label"><i class="fas fa-flag"></i> 目標</div>
+      <div class="goal-grid">
+        <div class="goal-card"><div class="goal-icon"><i class="fas fa-seedling"></i></div><div><div class="goal-label">短期</div><div class="goal-text">9/1 種子15人上線，結合 8TDB 研習實際驗證</div></div></div>
+        <div class="goal-card"><div class="goal-icon"><i class="fas fa-users"></i></div><div><div class="goal-label">中期</div><div class="goal-text">12/1 全面導入51人，完成 Plus → Business 切換</div></div></div>
+        <div class="goal-card"><div class="goal-icon"><i class="fas fa-shield-alt"></i></div><div><div class="goal-label">長期</div><div class="goal-text">公司統一管控 AI 工具的帳號、資安、費用與使用狀況</div></div></div>
+      </div>
+    </div>
+    <div class="purpose-section">
+      <div class="section-label"><i class="fas fa-lightbulb"></i> 考慮點與對策</div>
+      <table class="consider-table">
+        <thead><tr><th>考慮點</th><th>我們的對策</th></tr></thead>
+        <tbody>
+          <tr><td>大家已在用 Plus</td><td>重點不是「教大家用」，而是「幫大家搬家」</td></tr>
+          <tr><td>Gmail vs 公司email 無法合併</td><td>設計三階段轉換流程（匯出 → 重疊期 → 退訂）</td></tr>
+          <tr><td>擔心切換中斷工作</td><td>設 1 個月重疊期，雙帳號並行</td></tr>
+          <tr><td>去年付款方式問題</td><td>去年曾因付款方式未到位而暫緩，今年已解決</td></tr>
+          <tr><td>一次全員導入風險高</td><td>小沼先生裁示先種子測試再擴大</td></tr>
+          <tr><td>月繳比年繳貴</td><td>月繳無綁約，穩定後轉年繳省 20%</td></tr>
+          <tr><td>需要額外推廣</td><td>借 8TDB（數據驅動行銷系統）研習自然導入，零推廣成本</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2 -->
+<div class="tab-content" id="tab-why">
+  <div class="content-area">
+    <div class="reason-cards">
+      <div class="reason-card"><div class="reason-card-icon"><i class="fas fa-shield-alt"></i></div><h3>資安有保障</h3><p>Business 預設不將公司資料用於模型訓練，個人版無此保證</p></div>
+      <div class="reason-card"><div class="reason-card-icon"><i class="fas fa-sliders-h"></i></div><h3>公司統一管理</h3><p>Admin 後台管控帳號、追蹤使用、統一帳單，離職即停權</p></div>
+      <div class="reason-card"><div class="reason-card-icon"><i class="fas fa-coins"></i></div><h3>費用僅多 $5</h3><p>Plus $20/月 → Business $25/月，多 $5 即獲完整企業功能</p></div>
+    </div>
+    <div class="compare-label">功能比較一覽</div>
+    <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <thead><tr><th>功能</th><th>Plus $20/月</th><th>Business $25/月</th></tr></thead>
+      <tbody>
+        <tr><td>最新 AI 模型</td><td class="check">✅</td><td class="check">✅</td></tr>
+        <tr><td>GPT / Deep Research / Agent</td><td class="check">✅</td><td class="check">✅</td></tr>
+        <tr><td>圖片生成 / 程式 / MCP</td><td class="check">✅</td><td class="check">✅</td></tr>
+        <tr><td>Projects / Memory</td><td class="check">✅</td><td class="check">✅</td></tr>
+        <tr class="highlight-row"><td>Team Workspace</td><td class="cross">❌</td><td class="check">✅</td></tr>
+        <tr class="highlight-row"><td>共用 GPT / 共用知識庫</td><td class="cross">❌</td><td class="check">✅</td></tr>
+        <tr class="highlight-row"><td>Admin 管理 / 帳號集中</td><td class="cross">❌</td><td class="check">✅</td></tr>
+        <tr class="highlight-row"><td>公司帳單 / 使用分析</td><td class="cross">❌</td><td class="check">✅</td></tr>
+        <tr class="highlight-row"><td>SSO 登入 / MFA 集中管理</td><td class="cross">❌</td><td class="check">✅</td></tr>
+        <tr class="highlight-row"><td>資料預設不用於訓練</td><td class="cross">無保證</td><td class="check">✅ 預設不訓練</td></tr>
+        <tr><td>對話管理</td><td>個人自主</td><td>Admin 可依資安需求調閱</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3 -->
+<div class="tab-content" id="tab-team">
+  <div class="content-area">
+    <p class="team-intro"><a href="https://lc8t-pjboard.pages.dev" target="_blank" rel="noopener" class="tdb-badge"><span class="tdb-icon"><i class="fas fa-chart-line"></i></span>8TDB</a>以目前 8TDB（數據驅動行銷系統）專案研習成員為核心，結合 IT 與行政支援</p>
+    <div class="team-grid">
+      <div class="team-card"><div class="team-num">1</div><div><div class="team-name">小沼和幸</div><div class="team-role">管理層決策者 / 8TDB專案領導</div><div class="team-dept">總經理</div></div></div>
+      <div class="team-card admin"><div class="team-num">2</div><div><div class="team-name">王詩雅</div><div class="team-role">專案負責人 / Admin / 8TDB專案成員</div><div class="team-dept">經營戰略組</div></div></div>
+      <div class="team-card"><div class="team-num">3</div><div><div class="team-name">張育菱</div><div class="team-role">核心使用者 / 8TDB專案成員</div><div class="team-dept">經營戰略組</div></div></div>
+      <div class="team-card"><div class="team-num">4</div><div><div class="team-name">陳少琪</div><div class="team-role">核心使用者 / 8TDB專案成員</div><div class="team-dept">經營戰略組</div></div></div>
+      <div class="team-card"><div class="team-num">5</div><div><div class="team-name">阿比留華</div><div class="team-role">核心使用者 / 8TDB專案成員</div><div class="team-dept">經營戰略組</div></div></div>
+      <div class="team-card"><div class="team-num">6</div><div><div class="team-name">鮑慧芬</div><div class="team-role">CX 部門代表 / 8TDB專案成員</div><div class="team-dept">CX計劃處</div></div></div>
+      <div class="team-card"><div class="team-num">7</div><div><div class="team-name">鄭心怡</div><div class="team-role">電銷/客服場景驗證 / 8TDB專案成員</div><div class="team-dept">CS戰略組</div></div></div>
+      <div class="team-card"><div class="team-num">8</div><div><div class="team-name">賴純美</div><div class="team-role">電銷/客服場景驗證 / 8TDB專案成員</div><div class="team-dept">CS戰略組</div></div></div>
+      <div class="team-card"><div class="team-num">9</div><div><div class="team-name">郭姿伶</div><div class="team-role">LTV 場景驗證 / 8TDB專案成員</div><div class="team-dept">LTV組</div></div></div>
+      <div class="team-card it"><div class="team-num">10</div><div><div class="team-name">白如雪</div><div class="team-role">資訊長 / IT 技術支援 / 資安維護</div><div class="team-dept">資訊處</div></div></div>
+      <div class="team-card it"><div class="team-num">11</div><div><div class="team-name">吳家慶</div><div class="team-role">IT 技術支援 / 障礙排除 / 資安維護</div><div class="team-dept">資訊組</div></div></div>
+      <div class="team-card it"><div class="team-num">12</div><div><div class="team-name">戴詠</div><div class="team-role">IT 技術支援 / 障礙排除 / 資安維護</div><div class="team-dept">資訊組</div></div></div>
+      <div class="team-card it"><div class="team-num">13</div><div><div class="team-name">吳昌儒</div><div class="team-role">IT 技術支援 / 障礙排除 / 資安維護</div><div class="team-dept">資訊組</div></div></div>
+      <div class="team-card admin"><div class="team-num">14</div><div><div class="team-name">范巧惠</div><div class="team-role">Admin / 行政統籌 / 規範制定</div><div class="team-dept">總管理處</div></div></div>
+      <div class="team-card admin"><div class="team-num">15</div><div><div class="team-name">蔡品媛</div><div class="team-role">Admin / 統籌整合</div><div class="team-dept">統籌整合組</div></div></div>
+    </div>
+    <div class="team-cost">種子月費：$25 × 15 人 = <strong>$375 USD/月</strong>（約 12,188 TWD）<br><span style="font-size:0.75rem; opacity:0.85;">全面導入後常態預算：$25 × 51 人 = <strong>$1,275 USD/月</strong>（約 41,438 TWD）｜年約 <strong>$15,300 USD</strong>（約 497,250 TWD）</span></div>
+  </div>
+</div>
+
+<!-- TAB 4 -->
+<div class="tab-content" id="tab-timeline">
+  <div class="content-area">
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">8/17 當週</div><div class="tl-title">階段一：開通準備啟動</div><div class="tl-desc">發轉換通知、種子成員匯出個人資料與記憶至 Confluence、資訊組測試環境</div><div class="tl-tag prep">準備期</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">8/25（一）</div><div class="tl-title">Workspace 建立</div><div class="tl-desc">刷卡綁定、詩雅設定 Admin（詩雅、巧惠、品媛）、發送邀請信</div><div class="tl-tag prep">準備期</div></div>
+      <div class="tl-item major"><div class="tl-dot"></div><div class="tl-date">9/1（一）</div><div class="tl-title">階段二：正式開通，15 人上線</div><div class="tl-desc">首次扣款 $375 USD，種子成員用公司 email 登入 Business，從 Confluence 匯入記憶</div><div class="tl-tag go">開通日</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">9/8 ~ 9/28</div><div class="tl-title">階段三：試用驗證 3 週</div><div class="tl-desc">結合 8TDB 研習實際使用，收集問題與回饋</div><div class="tl-tag review">驗證期</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">10月上旬</div><div class="tl-title">階段四：小沼先生 Go / No-Go 決策</div><div class="tl-desc">詩雅彙整測試結果報告，小沼先生依4項標準裁決：使用率（15人中≥12人有使用）、無未解決的阻斷性問題、無資安事件、正面回饋≥70%。如未通過，延長種子測試或調整方案後再議，不強行擴大</div><div class="tl-tag review">檢討</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">11月下旬</div><div class="tl-title">全面導入準備</div><div class="tl-desc">發送 36 人邀請信、全員教育訓練與 Plus 退訂指導</div><div class="tl-tag prep">準備期</div></div>
+      <div class="tl-item major"><div class="tl-dot"></div><div class="tl-date">12/1（二）</div><div class="tl-title">全面導入：剩餘 36 人加入</div><div class="tl-desc">扣款 $1,275 USD，全員51人正式上線</div><div class="tl-tag full">全面導入</div></div>
+      <div class="tl-item final"><div class="tl-dot"></div><div class="tl-date">2027/1/1（四）</div><div class="tl-title">重疊期結束，全員完成轉換</div><div class="tl-desc">個人 Plus 退訂完成，公司 Business 成為唯一工作帳號</div></div>
+    </div>
+    <div style="margin-top:1.5rem; padding:0.7rem 1rem; background:var(--bg-subtle); border-radius:0.4rem; font-size:0.75rem; color:var(--text-secondary);">FY26費用估算：種子 $375×3月 + 全員 $1,275×1月 = <strong>$2,400 USD（約 78,000 TWD）</strong></div>
+  </div>
+</div>
+
+<!-- TAB 5: 資安與使用規範 -->
+<div class="tab-content" id="tab-faq">
+  <div class="content-area">
+    <div class="faq-item">
+      <div class="section-label"><i class="fas fa-lock"></i> 公司看得到我的對話內容嗎？</div>
+      <div class="faq-answer">
+        <p>ChatGPT Business 的 Workspace Admin 在技術上有權限查看成員的對話內容，這與公司 email 的管理邏輯相同。但 Admin 日常不會主動查閱個人對話，僅在發生資安事件時才會依規定調閱。</p>
+        <div class="faq-points">
+          <div class="faq-point"><div class="faq-point-icon good"><i class="fas fa-check"></i></div><div><strong>公司帳號是工作工具</strong><br>與公司 email、公司電腦一樣，屬於公司管理範圍</div></div>
+          <div class="faq-point"><div class="faq-point-icon good"><i class="fas fa-check"></i></div><div><strong>資料更安全</strong><br>Business 帳號的資料預設不會被 OpenAI 用來訓練模型，比個人版更有保障</div></div>
+          <div class="faq-point"><div class="faq-point-icon warn"><i class="fas fa-exclamation"></i></div><div><strong>私人話題請使用個人帳號</strong><br>取消 Plus 後個人帳號降為免費版，仍可正常使用。私人或隱私相關的對話，請使用個人帳號</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="section-label"><i class="fas fa-robot"></i> 其他 AI 工具還可以繼續使用嗎？</div>
+      <div class="faq-answer">
+        <p>可以。ChatGPT Business 為公司主推的 AI 工作平台，但因業務特殊需求使用其他 AI 工具（如 Claude、Copilot、Gemini 等）維持開放。</p>
+        <div class="faq-rules">
+          <div class="faq-rule"><span class="rule-num">1</span> ChatGPT Business 為公司統一提供的 AI 工作平台</div>
+          <div class="faq-rule"><span class="rule-num">2</span> 因業務工作特殊需求的其他 AI 工具，維持開放使用</div>
+          <div class="faq-rule"><span class="rule-num">3</span> 所有 AI 工具一律適用同一套資安規範（不得輸入客戶個資、機密資料等）</div>
+          <div class="faq-rule"><span class="rule-num">4</span> 其他 AI 工具的費用仍由個人負擔，公司僅統一支付 ChatGPT Business</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 6: 行動指引 -->
+<div class="tab-content" id="tab-action">
+  <div class="content-area">
+    <p class="action-intro">種子成員在開通前需完成以下 3 件事</p>
+    <div class="action-steps">
+      <div class="action-step"><div class="step-num">1</div><div>
+        <div class="step-title">匯出你的 ChatGPT 個人資料與記憶</div>
+        <div class="step-desc">① 登入個人 ChatGPT → Settings → Data Controls → Export Data → 等 email 收到 .zip 下載連結<br>② 在對話中輸入「請列出你目前記住的所有關於我的 Memory，逐條列出」→ 複製結果<br>③ 將 .zip 與 Memory 文字存入 Confluence 個人空間（作為中繼站備份）</div>
+        <div class="step-meta"><i class="fas fa-clock"></i> 約 10 分鐘操作（.zip 匯出需等最多 7 天，請提早）</div>
+      </div></div>
+      <div class="action-step"><div class="step-num">2</div><div>
+        <div class="step-title">確認公司 email 可正常使用</div>
+        <div class="step-desc">確認你的 @mail.benesse.com.tw 帳號能正常收發信。如有問題請聯繫資訊組同仁</div>
+        <div class="step-meta"><i class="fas fa-clock"></i> 約 1 分鐘</div>
+      </div></div>
+      <div class="action-step"><div class="step-num">3</div><div>
+        <div class="step-title">9/1 收到邀請信後，登入 Business 並匯入記憶</div>
+        <div class="step-desc">① 用公司 email 接受邀請 → 登入 ChatGPT Business Workspace<br>② 從 Confluence 個人空間取回 Memory 文字 → 在 Business 帳號的對話中請 ChatGPT 重新記住<br>③ 個人帳號先保留，重疊期結束後再退訂</div>
+        <div class="step-meta"><i class="fas fa-clock"></i> 約 5 分鐘</div>
+      </div></div>
+    </div>
+    <div class="action-note"><strong>記憶遷移流程：</strong>個人 Plus 的 Memory → 匯出文字 → 存入 Confluence 個人空間（中繼站）→ 匯入 ChatGPT Business 記憶庫。對話記錄、自訂 GPTs、Projects 無法自動轉移，需在 Business 重新建立。取消 Plus 後個人帳號降為免費版，舊對話仍可查看。</div>
+    <div class="action-note"><strong>詳細圖文操作教學</strong>將於 8/17 當週通知時一併提供。</div>
+
+    <div class="it-section">
+      <div class="section-label"><i class="fas fa-server"></i> 資訊組同仁任務</div>
+      <div class="it-tasks">
+        <div class="it-task"><i class="fas fa-user-shield"></i> 確認15人公司 email（@mail.benesse.com.tw）完成 ChatGPT Business 帳號設定</div>
+        <div class="it-task"><i class="fas fa-network-wired"></i> 測試公司網路環境能否正常連線 ChatGPT（防火牆、Proxy）</div>
+        <div class="it-task"><i class="fas fa-shield-alt"></i> 試用期間協助確認是否有人誤輸入敏感資料</div>
+      </div>
+    </div>
+
+    <div class="it-section">
+      <div class="section-label"><i class="fas fa-headset"></i> 支援窗口</div>
+      <div class="faq-points">
+        <div class="faq-point"><div class="faq-point-icon good"><i class="fas fa-user"></i></div><div><strong>計畫相關問題</strong><br>王詩雅（經營戰略組）：帳號開通、操作流程、資料轉移</div></div>
+        <div class="faq-point"><div class="faq-point-icon warn"><i class="fas fa-tools"></i></div><div><strong>技術問題</strong><br>資訊組（白如雪、吳家慶、戴詠、吳昌儒）：email、網路連線、瀏覽器、障礙排除</div></div>
+      </div>
+    </div>
+
+    <div class="it-section">
+      <div class="section-label"><i class="fas fa-calendar-plus"></i> 我不是種子成員，什麼時候輪到我？</div>
+      <p style="font-size:0.812rem; color:var(--text-secondary); line-height:1.8;">種子團隊驗證通過後，預計 12/1 起全面導入剩餘 36 位同仁。屆時會另行通知操作流程與教育訓練安排，你不需要現在做任何準備。</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Benesse Corporation Taipei Office 經營戰略組 ── ChatGPT Business 導入計畫 2026</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  var tabContents = document.querySelectorAll('.tab-content');
+  tabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetTab = this.getAttribute('data-tab');
+      tabBtns.forEach(function(b) { b.classList.remove('active'); });
+      tabContents.forEach(function(c) { c.classList.remove('active'); });
+      this.classList.add('active');
+      document.getElementById('tab-' + targetTab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+});
+</script>
+</body>
+</html>
