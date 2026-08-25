@@ -83,6 +83,14 @@
   .compare-table .cross { color: #ccc; }
   .compare-table .highlight-row { background: var(--green-light); }
 
+  .usage-block { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light); }
+  .usage-label { display:inline-block; padding:.3rem .8rem; background:var(--text-primary); color:#fff; border-radius:.3rem; font-size:.688rem; font-weight:700; letter-spacing:.5px; margin-bottom:.8rem; }
+  .usage-lead { font-size:.812rem; color:var(--text-secondary); line-height:1.8; margin-bottom:1rem; }
+  .usage-lead strong { color:var(--green); }
+  .usage-note { margin-top:1rem; padding:.8rem 1rem; background:var(--bg-subtle); border-left:3px solid var(--text-muted); border-radius:0 .4rem .4rem 0; font-size:.75rem; color:var(--text-secondary); line-height:1.8; }
+  .usage-note strong { color:var(--text-primary); }
+
+
   /* TAB 3 */
   .team-intro { font-size: 0.812rem; color: var(--text-muted); text-align: center; margin-bottom: 1.2rem; }
   .tdb-badge { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.6rem 0.25rem 0.3rem; margin-right: 0.5rem; background: #f7f8fa; border: 1px solid var(--border); border-radius: 0.4rem; font-size: 0.812rem; font-weight: 700; color: #1a1a1a; text-decoration: none; letter-spacing: 1px; vertical-align: middle; transition: border-color 0.2s, background 0.2s; }
@@ -255,6 +263,22 @@
       </tbody>
     </table>
     </div>
+
+    <div class="usage-block">
+      <div class="usage-label">使用量差異</div>
+      <p class="usage-lead">同仁最實際的問題是「換過去會不會比較夠用」。答案是<strong>會，但差別集中在標準模型的訊息上限</strong>。</p>
+      <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead><tr><th>使用項目</th><th>Plus $20/月</th><th>Business $25/月</th></tr></thead>
+        <tbody>
+          <tr class="highlight-row"><td>標準模型（日常文字對話）</td><td>每 3 小時約 160 則，超過後降為 mini 模型</td><td class="check">近乎無上限</td></tr>
+          <tr><td>Thinking 推理模型</td><td>每週 3,000 則</td><td>每週 3,000 則（相同）</td></tr>
+          <tr><td>單次對話上下文長度</td><td>Instant 32K／Thinking 256K</td><td>與 Plus 相同</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="usage-note"><strong>說明方式的提醒：</strong>ChatGPT 訂閱制是依模型、訊息次數與功能額度管理，並非按 Token 計價。OpenAI 未公布「Business 是 Plus 的幾倍 Token」這類換算，因此不宜用 Token 倍數對外說明。所有方案仍受防濫用機制與合理使用政策規範，沒有真正無上限的方案。</div>
+    </div>
   </div>
 </div>
 
@@ -287,8 +311,8 @@
 <div class="tab-content" id="tab-timeline">
   <div class="content-area">
     <div class="timeline">
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">8/17 當週</div><div class="tl-title">階段一：開通準備啟動</div><div class="tl-desc">發轉換通知、種子成員匯出個人資料與記憶至 Confluence、資訊組測試環境</div><div class="tl-tag prep">準備期</div></div>
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">8/25（一）</div><div class="tl-title">Workspace 建立</div><div class="tl-desc">刷卡綁定、詩雅設定 Admin（詩雅、巧惠、品媛）、發送邀請信</div><div class="tl-tag prep">準備期</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">8/25 當週</div><div class="tl-title">階段一：開通準備啟動</div><div class="tl-desc">向 8TDB 成員說明、種子成員當天送出匯出申請、資訊組測試環境</div><div class="tl-tag prep">準備期</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">8/26 ~ 8/31</div><div class="tl-title">Workspace 建立</div><div class="tl-desc">刷卡綁定、詩雅設定 Admin（詩雅、巧惠、品媛）、確認席位與邀請名單</div><div class="tl-tag prep">準備期</div></div>
       <div class="tl-item major"><div class="tl-dot"></div><div class="tl-date">9/1（一）</div><div class="tl-title">階段二：正式開通，15 人上線</div><div class="tl-desc">首次扣款 $375 USD，種子成員用公司 email 登入 Business，從 Confluence 匯入記憶</div><div class="tl-tag go">開通日</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">9/8 ~ 9/28</div><div class="tl-title">階段三：試用驗證 3 週</div><div class="tl-desc">結合 8TDB 研習實際使用，收集問題與回饋</div><div class="tl-tag review">驗證期</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">10月上旬</div><div class="tl-title">階段四：小沼先生 Go / No-Go 決策</div><div class="tl-desc">詩雅彙整測試結果報告，小沼先生依4項標準裁決：使用率（15人中≥12人有使用）、無未解決的阻斷性問題、無資安事件、正面回饋≥70%。如未通過，延長種子測試或調整方案後再議，不強行擴大</div><div class="tl-tag review">檢討</div></div>
@@ -338,7 +362,7 @@
       <div class="action-step"><div class="step-num">1</div><div>
         <div class="step-title">匯出你的 ChatGPT 個人資料與記憶</div>
         <div class="step-desc">① 登入個人 ChatGPT → Settings → Data Controls → Export Data → 等 email 收到 .zip 下載連結<br>② 在對話中輸入「請列出你目前記住的所有關於我的 Memory，逐條列出」→ 複製結果<br>③ 將 .zip 與 Memory 文字存入 Confluence 個人空間（作為中繼站備份）</div>
-        <div class="step-meta"><i class="fas fa-clock"></i> 約 10 分鐘操作（.zip 匯出需等最多 7 天，請提早）</div>
+        <div class="step-meta"><i class="fas fa-clock"></i> 約 10 分鐘操作（申請後約 1 天可下載，請提早送出）</div>
       </div></div>
       <div class="action-step"><div class="step-num">2</div><div>
         <div class="step-title">確認公司 email 可正常使用</div>
@@ -352,7 +376,7 @@
       </div></div>
     </div>
     <div class="action-note"><strong>記憶遷移流程：</strong>個人 Plus 的 Memory → 匯出文字 → 存入 Confluence 個人空間（中繼站）→ 匯入 ChatGPT Business 記憶庫。對話記錄、自訂 GPTs、Projects 無法自動轉移，需在 Business 重新建立。取消 Plus 後個人帳號降為免費版，舊對話仍可查看。</div>
-    <div class="action-note"><strong>詳細圖文操作教學</strong>將於 8/17 當週通知時一併提供。</div>
+    <div class="action-note"><strong>詳細圖文操作教學</strong>將於 8/25 當週說明會時一併提供。</div>
 
     <div class="it-section">
       <div class="section-label"><i class="fas fa-server"></i> 資訊組同仁任務</div>
