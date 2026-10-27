@@ -251,8 +251,8 @@
 <div class="tab-content" id="tab-why">
   <div class="content-area">
     <div class="reason-cards">
-      <div class="reason-card"><div class="reason-card-icon"><i class="fas fa-shield-alt"></i></div><h3>資安有保障</h3><p>Business 預設不將公司資料用於模型訓練，個人版無此保證</p></div>
-      <div class="reason-card"><div class="reason-card-icon"><i class="fas fa-sliders-h"></i></div><h3>公司統一管理</h3><p>Admin 後台管控帳號、追蹤使用、統一帳單，離職即停權</p></div>
+      <div class="reason-card"><div class="reason-card-icon"><i class="fas fa-shield-alt"></i></div><h3>資料預設不訓練</h3><p>Business 工作區資料預設不用於模型訓練；個人版需自行到資料控制關閉</p></div>
+      <div class="reason-card"><div class="reason-card-icon"><i class="fas fa-sliders-h"></i></div><h3>公司統一管理</h3><p>Admin 後台管控帳號、查看使用統計、統一帳單，離職即停權</p></div>
       <div class="reason-card"><div class="reason-card-icon"><i class="fas fa-coins"></i></div><h3>費用僅多 $5</h3><p>Plus $20/月 → Business $25/月，多 $5 即獲完整企業功能</p></div>
     </div>
     <div class="compare-label">功能比較一覽</div>
@@ -260,20 +260,21 @@
     <table class="compare-table">
       <thead><tr><th>功能</th><th>Plus $20/月</th><th>Business $25/月</th></tr></thead>
       <tbody>
-        <tr><td>最新 AI 模型</td><td class="check">✅</td><td class="check">✅</td></tr>
+        <tr><td>AI 模型（依方案與推出時程）</td><td class="check">✅</td><td class="check">✅</td></tr>
         <tr><td>GPT / Deep Research / Agent</td><td class="check">✅</td><td class="check">✅</td></tr>
         <tr><td>圖片生成 / 程式 / MCP</td><td class="check">✅</td><td class="check">✅</td></tr>
         <tr><td>Projects / Memory</td><td class="check">✅</td><td class="check">✅</td></tr>
         <tr class="highlight-row"><td>Team Workspace</td><td class="cross">❌</td><td class="check">✅</td></tr>
-        <tr class="highlight-row"><td>共用 GPT / 共用知識庫</td><td class="cross">❌</td><td class="check">✅</td></tr>
+        <tr class="highlight-row"><td>共用專案（Projects）</td><td>可邀請個人協作者<br>（每專案最多 10 人）</td><td class="check">✅ 工作區成員／群組<br>（每專案最多 100 人）</td></tr>
         <tr class="highlight-row"><td>Admin 管理 / 帳號集中</td><td class="cross">❌</td><td class="check">✅</td></tr>
-        <tr class="highlight-row"><td>公司帳單 / 使用分析</td><td class="cross">❌</td><td class="check">✅</td></tr>
-        <tr class="highlight-row"><td>SSO 登入 / MFA 集中管理</td><td class="cross">❌</td><td class="check">✅</td></tr>
-        <tr class="highlight-row"><td>資料預設不用於訓練</td><td class="cross">無保證</td><td class="check">✅ 預設不訓練</td></tr>
-        <tr><td>對話管理</td><td>個人自主</td><td>Admin 可依資安需求調閱</td></tr>
+        <tr class="highlight-row"><td>公司帳單 / 使用統計</td><td class="cross">❌</td><td class="check">✅</td></tr>
+        <tr class="highlight-row"><td>SSO 單一登入 / 網域驗證</td><td class="cross">❌</td><td class="check">✅</td></tr>
+        <tr class="highlight-row"><td>資料預設不用於訓練</td><td>需自行到資料控制關閉</td><td class="check">✅ 預設不訓練</td></tr>
+        <tr><td>私人對話</td><td>個人自主</td><td>預設私人，其他成員與管理員不會自動看到</td></tr>
       </tbody>
     </table>
     </div>
+    <div class="usage-note"><strong>登入管理的提醒：</strong>Business 支援 SAML／OIDC 單一登入與網域驗證；MFA 依公司身分識別系統設定，獨立 Business 工作區不含 SCIM 自動同步，正式設定前由資訊組核對。</div>
 
     <div class="usage-block">
       <div class="usage-label">使用量差異</div>
@@ -355,10 +356,10 @@
     <div class="faq-item">
       <div class="section-label"><i class="fas fa-lock"></i> 公司看得到我的對話內容嗎？</div>
       <div class="faq-answer">
-        <p>ChatGPT Business 的 Workspace Admin 在技術上有權限查看成員的對話內容，這與公司 email 的管理邏輯相同。但 Admin 日常不會主動查閱個人對話，僅在發生資安事件時才會依規定調閱。</p>
+        <p>不會自動看到。ChatGPT Business 的每位成員都有自己的私人聊天記錄，其他成員與 Workspace Admin 不會自動看到。Admin 看得到的是工作區的使用統計（例如活躍使用者、訊息活動、用量），不是聊天內容。但這不代表公司在任何情況下都接觸不到資料：你主動分享的對話、放進共用專案的內容，都受公司工作區的管理、保留與存取規則規範。</p>
         <div class="faq-points">
           <div class="faq-point"><div class="faq-point-icon good"><i class="fas fa-check"></i></div><div><strong>公司帳號是工作工具</strong><br>與公司 email、公司電腦一樣，屬於公司管理範圍</div></div>
-          <div class="faq-point"><div class="faq-point-icon good"><i class="fas fa-check"></i></div><div><strong>資料更安全</strong><br>Business 帳號的資料預設不會被 OpenAI 用來訓練模型，比個人版更有保障</div></div>
+          <div class="faq-point"><div class="faq-point-icon good"><i class="fas fa-check"></i></div><div><strong>資料預設不訓練</strong><br>Business 工作區的資料預設不會被 OpenAI 用來訓練模型；但這不代表機密或客戶個資可以輸入，仍須遵守公司資料規範</div></div>
           <div class="faq-point"><div class="faq-point-icon warn"><i class="fas fa-exclamation"></i></div><div><strong>私人話題請使用個人帳號</strong><br>取消 Plus 後個人帳號降為免費版，仍可正常使用。私人或隱私相關的對話，請使用個人帳號</div></div>
         </div>
       </div>
