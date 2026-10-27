@@ -83,6 +83,16 @@
   .compare-table .cross { color: #ccc; }
   .compare-table .highlight-row { background: var(--green-light); }
 
+  /* TAB 功能差異 */
+  .feature-intro { font-size: 0.812rem; color: var(--text-muted); text-align: center; margin-bottom: 1rem; }
+  .feature-actions { display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .feature-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; border-radius: 0.35rem; font-size: 0.75rem; font-weight: 600; text-decoration: none; background: var(--green); color: #fff; border: 1px solid var(--green); }
+  .feature-btn:hover { background: var(--green-dark); border-color: var(--green-dark); }
+  .feature-btn.ghost { background: #fff; color: var(--green-dark); }
+  .feature-btn.ghost:hover { background: var(--green-light); }
+  .feature-figure { display: block; border: 1px solid var(--border); border-radius: 0.6rem; overflow: hidden; }
+  .feature-figure img { display: block; width: 100%; height: auto; }
+
   .usage-block { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light); }
   .usage-label { display:inline-block; padding:.3rem .8rem; background:var(--text-primary); color:#fff; border-radius:.3rem; font-size:.688rem; font-weight:700; letter-spacing:.5px; margin-bottom:.8rem; }
   .usage-lead { font-size:.812rem; color:var(--text-secondary); line-height:1.8; margin-bottom:1rem; }
@@ -192,6 +202,7 @@
   <div class="tab-list">
     <button class="tab-btn active" data-tab="overview">計畫概要</button>
     <button class="tab-btn" data-tab="why">為什麼要轉換</button>
+    <button class="tab-btn" data-tab="features">功能差異比較</button>
     <button class="tab-btn" data-tab="team">種子團隊</button>
     <button class="tab-btn" data-tab="timeline">重點時程</button>
     <button class="tab-btn" data-tab="faq">資安與使用規範</button>
@@ -279,6 +290,20 @@
       </div>
       <div class="usage-note"><strong>說明方式的提醒：</strong>ChatGPT 訂閱制是依模型、訊息次數與功能額度管理，並非按 Token 計價。OpenAI 未公布「Business 是 Plus 的幾倍 Token」這類換算，因此不宜用 Token 倍數對外說明。所有方案仍受防濫用機制與合理使用政策規範，沒有真正無上限的方案。</div>
     </div>
+  </div>
+</div>
+
+<!-- TAB: 功能差異比較 -->
+<div class="tab-content" id="tab-features">
+  <div class="content-area">
+    <p class="feature-intro">給種子成員：一張圖看懂 Plus 與 Business 的功能差異，以及 Business 工作區特有的功能（資料核對日 2026/10/27）</p>
+    <div class="feature-actions">
+      <a class="feature-btn" href="images/chatgpt-business-features.png" target="_blank" rel="noopener"><i class="fas fa-expand"></i> 開啟原尺寸</a>
+      <a class="feature-btn ghost" href="images/chatgpt-business-features.png" download="ChatGPT_Business特有功能_種子成員版_2026-10-27.png"><i class="fas fa-download"></i> 下載 PNG</a>
+    </div>
+    <a class="feature-figure" href="images/chatgpt-business-features.png" target="_blank" rel="noopener">
+      <img src="images/chatgpt-business-features.png" width="1800" height="3945" loading="lazy" alt="ChatGPT Plus 與 Business 功能差異資訊圖表：公司工作區、團隊協作、資料預設不訓練、共用專案管控、成員與權限管理、工作區使用統計、私人對話、SSO 企業登入的逐項對照，種子成員必知的 3 個觀念，以及已有個人 Plus 時加入 Business 前的確認流程">
+    </a>
   </div>
 </div>
 
