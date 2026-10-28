@@ -200,9 +200,9 @@
 
 <div class="tab-container">
   <div class="tab-list">
-    <button class="tab-btn active" data-tab="overview">計畫概要</button>
+    <button class="tab-btn" data-tab="overview">計畫概要</button>
     <button class="tab-btn" data-tab="why">為什麼要轉換</button>
-    <button class="tab-btn" data-tab="features">功能差異比較</button>
+    <button class="tab-btn active" data-tab="features">功能差異比較</button>
     <button class="tab-btn" data-tab="team">種子團隊</button>
     <button class="tab-btn" data-tab="timeline">重點時程</button>
     <button class="tab-btn" data-tab="faq">資安與使用規範</button>
@@ -211,7 +211,7 @@
 </div>
 
 <!-- TAB 1 -->
-<div class="tab-content active" id="tab-overview">
+<div class="tab-content" id="tab-overview">
   <div class="content-area">
     <div class="purpose-section">
       <div class="section-label"><i class="fas fa-bullseye"></i> 目的</div>
@@ -278,12 +278,12 @@
 
     <div class="usage-block">
       <div class="usage-label">使用量差異</div>
-      <p class="usage-lead">同仁最實際的問題是「換過去會不會比較夠用」。答案是<strong>會，但差別集中在標準模型的訊息上限</strong>。</p>
+      <p class="usage-lead">同仁最實際的問題是「換過去會不會比較夠用」。答案是<strong>要看席位類型</strong>：Standard 與 Premium 在同一個 Business 工作區使用，差別在包含的使用額度，實際額度會因模型及任務而異。</p>
       <div style="overflow-x:auto;">
       <table class="compare-table">
         <thead><tr><th>使用項目</th><th>Plus $20/月</th><th>Business $25/月</th></tr></thead>
         <tbody>
-          <tr class="highlight-row"><td>標準模型（日常文字對話）</td><td>每 3 小時約 160 則，超過後降為 mini 模型</td><td class="check">近乎無上限</td></tr>
+          <tr class="highlight-row"><td>標準模型（日常文字對話）</td><td>每 3 小時約 160 則，超過後降為 mini 模型</td><td>Standard 席位仍有使用上限<br>（Premium 約 5 倍額度，並取消 5 小時上限）</td></tr>
           <tr><td>Thinking 推理模型</td><td>每週 3,000 則</td><td>每週 3,000 則（相同）</td></tr>
           <tr><td>單次對話上下文長度</td><td>Instant 32K／Thinking 256K</td><td>與 Plus 相同</td></tr>
         </tbody>
@@ -295,7 +295,7 @@
 </div>
 
 <!-- TAB: 功能差異比較 -->
-<div class="tab-content" id="tab-features">
+<div class="tab-content active" id="tab-features">
   <div class="content-area">
     <p class="feature-intro">給種子成員：一張圖看懂 Plus 與 Business 的功能差異，以及 Business 工作區特有的功能（資料核對日 2026/10/27）</p>
     <div class="feature-actions">
@@ -303,7 +303,7 @@
       <a class="feature-btn ghost" href="images/chatgpt-business-features.png" download="ChatGPT_Business特有功能_種子成員版_2026-10-27.png"><i class="fas fa-download"></i> 下載 PNG</a>
     </div>
     <a class="feature-figure" href="images/chatgpt-business-features.png" target="_blank" rel="noopener">
-      <img src="images/chatgpt-business-features.png" width="1800" height="3945" loading="lazy" alt="ChatGPT Plus 與 Business 功能差異資訊圖表：公司工作區、團隊協作、資料預設不訓練、共用專案管控、成員與權限管理、工作區使用統計、私人對話、SSO 企業登入的逐項對照，種子成員必知的 3 個觀念，以及已有個人 Plus 時加入 Business 前的確認流程">
+      <img src="images/chatgpt-business-features.png" width="1800" height="3945" alt="ChatGPT Plus 與 Business 功能差異資訊圖表：公司工作區、團隊協作、資料預設不訓練、共用專案管控、成員與權限管理、工作區使用統計、私人對話、SSO 企業登入的逐項對照，種子成員必知的 3 個觀念，以及已有個人 Plus 時加入 Business 前的確認流程">
     </a>
   </div>
 </div>
