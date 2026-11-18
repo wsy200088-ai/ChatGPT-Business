@@ -144,6 +144,223 @@ ol.steps li span{color:var(--muted)}
 .row.b{background:var(--accent-soft)} .row.b b{background:var(--accent);color:var(--surface)}
 .myth{border-top:4px solid var(--warm)}
 .myth .x{color:var(--warm);font-weight:700;font-size:15px;margin-bottom:6px;display:block}
+
+/* ================= 簡報模式（動態） ================= */
+[hidden]{display:none!important}
+#deck{display:none}
+html.deck,html.deck body{height:100%;overflow:hidden}
+html.deck body{background:var(--head)}
+html.deck body > header,html.deck nav.tabs,html.deck main,html.deck footer{display:none}
+html.deck #deck{display:block}
+@keyframes dkPop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+@keyframes dkDrop{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:none}}
+@keyframes dkRise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes dkGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes dkMarq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes dkStamp{from{opacity:0;transform:scale(2) rotate(-16deg)}to{opacity:1;transform:rotate(-6deg)}}
+.dk-stage{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:50% 50%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',"Microsoft JhengHei",sans-serif}
+.dk-tick{position:absolute;left:0;right:0;height:46px;background:var(--head);color:#fff;overflow:hidden;z-index:6;display:flex;align-items:center}
+.dk-tick.top{top:0}.dk-tick.bot{bottom:0}
+.dk-tick.top:after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--brand)}
+.dk-tk{display:flex;white-space:nowrap;animation:dkMarq 40s linear infinite}
+.dk-tick.bot .dk-tk{animation-direction:reverse;animation-duration:48s}
+.dk-tk span{display:inline-flex;align-items:center;gap:26px;padding-right:26px;font-size:18px;font-weight:700;letter-spacing:.08em}
+.dk-tk i{font-style:normal;color:var(--brand)}
+.dk-tk em{font-style:normal;color:rgba(255,255,255,.55);font-weight:400}
+.dk-top{position:absolute;left:64px;right:64px;top:44px;display:flex;justify-content:space-between;align-items:center;z-index:5}
+.dk-brand{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:700;letter-spacing:.06em}
+.dk-brand span{background:var(--head);color:#fff;padding:2px 12px;border-bottom:3px solid var(--brand)}
+.dk-pill{font-size:15px;font-weight:700;color:var(--muted);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 16px}
+/* 開場 */
+.dk-hero{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--head);color:#fff;z-index:4;transition:opacity .6s ease,transform .8s cubic-bezier(.65,0,.35,1)}
+.dk-hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--brand)}
+.dk-hero .chip{font-size:18px;font-weight:500;letter-spacing:.2em;color:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 22px}
+.dk-hero .chip:before{content:"●";color:var(--brand);margin-right:8px}
+.dk-hero h1{margin-top:30px;font-size:80px;line-height:1.3;font-weight:800;color:#fff}
+.dk-hero h1 em{font-style:normal;color:var(--brand)}
+.dk-hero p{margin-top:22px;font-size:24px;font-weight:300;color:rgba(255,255,255,.7)}
+.dk-hero .go{margin-top:40px;font-size:18px;font-weight:700;color:#fff;background:var(--brand);border-radius:999px;padding:10px 28px}
+.dk-js .dk-hero h1,.dk-js .dk-hero .chip,.dk-js .dk-hero p,.dk-js .dk-hero .go{opacity:0}
+.dk-ready .dk-hero .chip{animation:dkDrop .6s ease .1s both}
+.dk-ready .dk-hero h1{animation:dkRise .8s cubic-bezier(.2,.8,.2,1) .3s both}
+.dk-ready .dk-hero p{animation:dkRise .7s ease .7s both}
+.dk-ready .dk-hero .go{animation:dkPop .5s cubic-bezier(.34,1.56,.64,1) 1.1s both}
+.dk-stage.k1 .dk-hero{opacity:0;transform:translateY(-120px);pointer-events:none}
+/* 核心問題列＋每頁一句話 */
+.dk-q{position:absolute;left:64px;right:64px;top:104px;display:flex;align-items:center;gap:16px;font-size:26px;font-weight:700;opacity:0;transition:opacity .6s ease .35s;z-index:3}
+.dk-q .lb{flex:none;font-size:14px;letter-spacing:.2em;color:#fff;background:var(--head);border-radius:999px;padding:3px 14px}
+.dk-q .w{background:linear-gradient(transparent 58%,var(--accent-soft) 58%) no-repeat;background-size:0% 100%;transition:background-size .6s cubic-bezier(.2,.8,.2,1) .4s,color .4s}
+.dk-stage[data-w="1"] .dk-q .w1,.dk-stage[data-w="2"] .dk-q .w2,.dk-stage[data-w="3"] .dk-q .w3{background-size:100% 100%;color:var(--accent)}
+.dk-stage.k1 .dk-q{opacity:1}
+.dk-cap{position:absolute;left:64px;right:64px;top:160px;height:84px;overflow:hidden;z-index:3}
+.dk-cap > span{position:absolute;left:0;top:0;white-space:nowrap;font-size:54px;line-height:80px;font-weight:800;color:var(--ink);transform:translateY(110%);transition:transform .7s cubic-bezier(.65,0,.35,1)}
+.dk-cap > span.on{transform:none;transition-delay:.25s}
+.dk-cap > span.past{transform:translateY(-110%)}
+.dk-cap > span i{font-style:normal;color:var(--accent)}
+/* 頁面（262〜800） */
+.dk-pgs{position:absolute;left:0;right:0;top:262px;height:540px;z-index:2}
+.dk-pg{position:absolute;inset:0;padding:6px 64px 0;opacity:0;visibility:hidden;transform:translateY(30px);transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1),visibility 0s linear .55s}
+.dk-pg.on{opacity:1;visibility:visible;transform:none;transition-delay:.2s,.2s,0s}
+.dk-pg .an{opacity:0}
+.dk-pg.on .an{animation:dkPop .5s cubic-bezier(.34,1.56,.64,1) var(--d,0s) both}
+.dk-pg.on .an.dr{animation-name:dkDrop;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+.dk-pg.on .an.ri{animation-name:dkRise;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+.dk-pg.on .an.st{animation:dkStamp .5s cubic-bezier(.34,1.56,.64,1) var(--d,0s) both}
+.dk-c{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.dk-c.hi{border:2px solid var(--brand)}
+.dk-c.dark{background:var(--head);color:#fff;border-color:var(--head)}
+.dk-tag{display:inline-block;font-size:15px;font-weight:700;letter-spacing:.1em;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:3px 14px}
+.dk-tag.dk{background:var(--head);color:#fff}
+.dk-g{display:grid;gap:22px}
+.dk-g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.dk-g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.dk-g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.dk-box{padding:24px 26px}
+.dk-box .ic{font-size:44px;line-height:1}
+.dk-box h3{margin-top:14px;font-size:30px;font-weight:800;line-height:1.3}
+.dk-box p{margin-top:10px;font-size:21px;line-height:1.55;color:var(--muted)}
+.dk-band{margin-top:30px;background:var(--head);color:#fff;border-radius:16px;padding:20px 30px;font-size:28px;font-weight:700;border-left:10px solid var(--brand)}
+.dk-band b{color:var(--brand)}
+/* 8CA 的 A */
+.dk-eq{display:flex;align-items:center;justify-content:center;gap:0}
+.dk-tile{width:262px;height:190px;padding:18px 22px;display:flex;flex-direction:column;justify-content:center}
+.dk-tile .bd{width:52px;height:52px;border-radius:12px;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800}
+.dk-tile.isA .bd{background:var(--brand);border-color:var(--brand);color:#fff}
+.dk-tile b{margin-top:10px;font-size:32px;font-weight:800;line-height:1.1}
+.dk-tile small{margin-top:6px;font-size:17px;line-height:1.4;color:var(--muted)}
+.dk-tile.res{width:330px}
+.dk-tile.res b{font-size:58px;color:var(--brand)}
+.dk-tile.res small{font-size:20px;color:rgba(255,255,255,.75)}
+.dk-eq .op{width:56px;text-align:center;font-size:48px;font-weight:800;color:var(--muted)}
+.dk-aim{padding:22px 28px}
+.dk-aim p{margin-top:12px;font-size:26px;line-height:1.55;font-weight:500}
+.dk-aim p b{color:var(--accent)}
+/* 頁面點點＋上下頁 */
+.dk-nav{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;z-index:8}
+.dk-nav button{font:inherit;cursor:pointer;border:0;background:none}
+.dk-nav .ar{width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.dk-nav .ar:hover{border-color:var(--brand);color:var(--accent)}
+.dk-nav .ar:disabled{opacity:.3;cursor:default}
+.dk-dots{display:flex;gap:9px;align-items:center}
+.dk-dots button{width:12px;height:12px;border-radius:50%;background:var(--line);padding:0;transition:width .3s,background .3s}
+.dk-dots button:hover{background:var(--muted)}
+.dk-dots button.on{width:30px;border-radius:6px;background:var(--brand)}
+.dk-stage.k0 .dk-nav .ar,.dk-stage.k0 .dk-dots button{background:rgba(255,255,255,.15);border-color:transparent;color:#fff}
+.dk-stage.k0 .dk-dots button.on{background:var(--brand)}
+/* 修改用的編號（# 長按） */
+#codesBtn{position:fixed;right:14px;bottom:14px;z-index:95;width:44px;height:44px;border-radius:50%;font:inherit;font-size:20px;font-weight:800;color:var(--head);background:#fff;border:2px solid var(--brand);cursor:pointer;opacity:.6;transition:opacity .3s,transform .15s;user-select:none;-webkit-user-select:none;touch-action:none}
+#codesBtn:hover,body.show-codes #codesBtn{opacity:1}
+#codesBtn.hold{transform:scale(.9);background:var(--accent-soft)}
+body.show-codes #codesBtn{background:var(--brand);color:#fff}
+html.deck body.idle:not(.show-codes) #codesBtn{opacity:0}
+.has-code{position:relative}
+.code-tag{position:absolute;top:2px;right:2px;z-index:96;font:12px/1 ui-monospace,Consolas,monospace!important;font-weight:400!important;letter-spacing:0!important;background:#fff3c4;color:#5a4500;border:1px solid #e5cf6d;border-radius:4px;padding:3px 5px;cursor:pointer;opacity:1!important;transform:none!important;text-shadow:none;white-space:nowrap}
+.dk-stage .code-tag{font-size:16px!important;padding:4px 6px}
+#codeToast{position:fixed;left:50%;bottom:70px;transform:translateX(-50%);z-index:99;background:var(--head);color:#fff;border-radius:999px;padding:8px 18px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none}
+#codeToast.on{opacity:1}
+/* 好處 8 個 */
+.dk-ben{padding:18px 20px;display:flex;gap:14px;align-items:flex-start;height:230px}
+.dk-ben .n{flex:none;width:46px;height:46px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:24px;display:flex;align-items:center;justify-content:center}
+.dk-ben h3{font-size:25px;font-weight:800;line-height:1.3}
+.dk-ben p{margin-top:8px;font-size:18px;line-height:1.55;color:var(--muted)}
+/* 數字＋引言 */
+.dk-stat{padding:22px;text-align:center}
+.dk-stat b{display:block;font-size:96px;line-height:1;font-weight:800;color:var(--accent)}
+.dk-stat b small{font-size:44px}
+.dk-stat span{display:block;margin-top:12px;font-size:21px;color:var(--muted)}
+.dk-qt{padding:20px 24px;border-left:6px solid var(--brand);font-size:22px;line-height:1.55;font-weight:500}
+.dk-qt small{display:block;margin-top:8px;font-size:16px;color:var(--muted);font-weight:400}
+/* Plus vs Business */
+.dk-vs{display:grid;grid-template-columns:1fr 80px 1fr;align-items:center}
+.dk-vs .dk-c{padding:14px 26px}
+.dk-vs small{display:block;font-size:15px;font-weight:700;letter-spacing:.1em;color:var(--muted)}
+.dk-vs h3{margin-top:6px;font-size:32px;font-weight:800}
+.dk-vs .dk-c.hi small{color:var(--accent)}
+.dk-vs .mid{justify-self:center;width:58px;height:58px;border-radius:50%;background:var(--head);color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center}
+.dk-ft{margin-top:16px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.dk-ft .dk-c{padding:12px 16px}
+.dk-ft h4{font-size:22px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.dk-ft h4 em{font-style:normal;flex:none;font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--brand);color:#fff}
+.dk-ft h4 em.u{background:var(--accent-soft);color:var(--accent)}
+.dk-ft h4 em.s{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.dk-ft p{margin-top:6px;font-size:17px;line-height:1.45;color:var(--muted)}
+.dk-same{margin-top:12px;font-size:20px;color:var(--muted);text-align:center}
+.dk-same b{color:var(--ink)}
+/* 誤解 */
+.dk-myth{padding:26px 28px;border-top:6px solid var(--warm);height:430px}
+.dk-myth .x{display:block;font-size:20px;font-weight:700;color:var(--warm)}
+.dk-myth h3{margin-top:16px;font-size:36px;font-weight:800;line-height:1.3}
+.dk-myth p{margin-top:16px;font-size:22px;line-height:1.6;color:var(--muted)}
+/* 路線圖 */
+.dk-flow{position:relative;height:520px}
+.dk-node{position:absolute;padding:16px 22px;font-size:24px;font-weight:700;line-height:1.4}
+.dk-node.qn{background:var(--head);color:#fff;border-radius:14px}
+.dk-node.qn small{display:block;font-size:15px;font-weight:500;color:var(--brand);letter-spacing:.1em}
+.dk-node.rt{display:flex;gap:16px;align-items:center}
+.dk-node.rt .L{flex:none;width:58px;height:58px;border-radius:50%;background:var(--brand);color:#fff;font-size:30px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.dk-node.rt.d .L{background:var(--warm)}
+.dk-node.rt b{display:block;font-size:26px}
+.dk-node.rt small{display:block;font-size:17px;font-weight:400;color:var(--muted)}
+.dk-ln{position:absolute;height:4px;background:var(--brand);transform-origin:0 50%}
+.dk-pg.on .dk-ln{animation:dkGrow .5s ease var(--d,0s) both}
+.dk-lb{position:absolute;font-size:18px;font-weight:700;color:var(--accent);background:var(--bg);padding:0 8px}
+/* 步驟 */
+.dk-steps{display:grid;gap:18px}
+.dk-step{padding:18px 22px;display:flex;gap:16px;align-items:flex-start}
+.dk-step .n{flex:none;width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center}
+.dk-step b{display:block;font-size:24px;font-weight:800;line-height:1.35}
+.dk-step span{display:block;margin-top:6px;font-size:18px;line-height:1.55;color:var(--muted)}
+.dk-path{display:inline-block;font-size:16px;background:var(--accent-soft);color:var(--accent);border-radius:6px;padding:0 8px;font-weight:700}
+.dk-stamp{position:absolute;font-size:22px;font-weight:800;color:var(--warm);border:3px solid var(--warm);border-radius:12px;padding:6px 16px;background:var(--warm-soft);transform:rotate(-6deg)}
+.dk-prompt{margin-top:8px;font-size:16px;line-height:1.5;background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:8px 12px;color:var(--ink)}
+/* 對照表 */
+.dk-tb{width:100%;border-collapse:separate;border-spacing:0;font-size:21px;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.dk-tb th{background:var(--head);color:#fff;text-align:left;padding:12px 20px;font-size:20px}
+.dk-tb th:nth-child(2){border-bottom:3px solid var(--brand)}
+.dk-tb td{padding:10px 20px;border-top:1px solid var(--line);vertical-align:top}
+.dk-tb td:first-child{font-weight:700;width:260px}
+.dk-tb td:nth-child(2){background:var(--accent-soft)}
+/* 約定＋三級 */
+.dk-pr{padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.dk-pr .e{font-size:44px;line-height:1}
+.dk-pr h3{font-size:28px;font-weight:800;line-height:1.3}
+.dk-pr p{margin-top:8px;font-size:19px;line-height:1.5;color:var(--muted)}
+.dk-lv{margin-top:26px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.dk-lv div{padding:18px 22px;background:var(--surface)}
+.dk-lv div+div{border-left:1px solid var(--line)}
+.dk-lv b{display:block;font-size:24px;font-weight:800}
+.dk-lv span{display:block;margin-top:6px;font-size:18px;line-height:1.5;color:var(--muted)}
+.dk-lv .g{border-top:6px solid #16a34a}.dk-lv .y{border-top:6px solid #f59e0b}.dk-lv .r{border-top:6px solid #dc2626}
+/* 時程＋結尾 */
+.dk-tl{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;padding-top:30px}
+.dk-tl:before{content:"";position:absolute;left:20px;right:20px;top:42px;height:4px;background:var(--line)}
+.dk-tl .bar{position:absolute;left:20px;right:20px;top:42px;height:4px;background:var(--brand);transform-origin:0 50%}
+.dk-pg.on .dk-tl .bar{animation:dkGrow 1.6s ease .3s both}
+.dk-tl div.s{position:relative;padding-top:34px}
+.dk-tl div.s:before{content:"";position:absolute;left:0;top:2px;width:22px;height:22px;border-radius:50%;background:var(--surface);border:4px solid var(--brand)}
+.dk-tl b{display:block;font-size:26px;font-weight:800}
+.dk-tl span{display:block;margin-top:6px;font-size:19px;line-height:1.5;color:var(--muted)}
+.dk-end{margin-top:44px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:26px 32px}
+.dk-end h3{font-size:34px;font-weight:800}
+.dk-end h3 em{font-style:normal;color:var(--brand)}
+.dk-end p{margin-top:8px;font-size:20px;color:rgba(255,255,255,.7)}
+.dk-btn{display:inline-block;font:inherit;font-size:20px;font-weight:700;color:#fff;background:var(--brand);border:0;border-radius:999px;padding:12px 26px;cursor:pointer}
+/* 進度・操作 */
+.dk-prog{position:absolute;left:0;bottom:0;height:5px;width:0;background:var(--brand);z-index:7;transition:width .5s ease}
+.dk-hint{position:absolute;left:150px;bottom:30px;font-size:14px;color:var(--muted);z-index:5}
+.dk-num{position:absolute;left:64px;bottom:28px;font-size:16px;font-weight:700;color:var(--muted);z-index:5}
+.dk-notes{position:absolute;left:64px;right:64px;bottom:60px;z-index:20;background:rgba(26,26,26,.94);color:#fff;border-radius:14px;padding:18px 24px;font-size:20px;line-height:1.6;border-left:6px solid var(--brand)}
+.dk-notes b{display:block;font-size:14px;letter-spacing:.1em;color:var(--brand);margin-bottom:6px}
+#dkModeBtn{position:fixed;right:68px;bottom:18px;z-index:90;font:inherit;font-size:14px;font-weight:700;color:var(--head);background:#fff;border:2px solid var(--brand);border-radius:999px;padding:6px 14px;cursor:pointer;opacity:.6;transition:opacity .3s}
+#dkModeBtn:hover{opacity:1}
+html.deck body.idle{cursor:none}
+html.deck body.idle #dkModeBtn{opacity:0}
+/* 閱讀模式：進入畫面時的動態 */
+#toDeck{display:none;margin-top:18px;font:inherit;font-size:15px;font-weight:700;color:#fff;background:var(--brand);border:0;border-radius:999px;padding:8px 18px;cursor:pointer}
+html.can-deck #toDeck{display:inline-block}
+.rv-js main .card,.rv-js main .quote,.rv-js main ol.steps li,.rv-js main .feat,.rv-js main details,.rv-js main .tbl{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.rv-js main .rv-in{opacity:1!important;transform:none!important}
+@media (prefers-reduced-motion: reduce){.dk-stage *,.dk-stage *:before,.dk-stage *:after,.dk-tk{animation-duration:0s!important;animation-delay:0s!important;transition:none!important}.rv-js main *{transition:none!important}}
 .promise .e{font-size:26px;line-height:1.2}
 
 /* timeline */
@@ -166,11 +383,238 @@ a{color:var(--accent)}
 </head>
 <body>
 
+<!-- ================= 簡報模式（電腦：→ ← 翻頁，N 備註，M 完整手冊） ================= -->
+<div id="deck" aria-label="ChatGPT Business 全員導入 簡報">
+<div class="dk-stage" id="stage" data-k="0" data-w="0">
+  <div class="dk-top"><div class="dk-brand"><span>ChatGPT Business</span>全員導入指南</div><div class="dk-pill">台北分公司｜經營戰略組</div></div>
+
+  <div class="dk-hero">
+    <div class="chip">8CA ＝ 8TDB ＋ Confluence ＋ AI</div>
+    <h1>春節後，全公司一起<br><em>和 AI 用公司的數據工作。</em></h1>
+    <p>8CA 的「A」，就是每個人自己的 AI：公司的 ChatGPT Business</p>
+    <div class="go">按 → 開始</div>
+  </div>
+
+  <div class="dk-q"><span class="lb">今天的 3 個問題</span><span>8CA 的 A：<span class="w w1">對我有什麼好處</span>、<span class="w w2">我要怎麼開始</span>、<span class="w w3">要記得什麼</span>？</span></div>
+  <div class="dk-cap" aria-live="polite">
+    <span>8CA 的 A：<i>每個人自己的 AI</i></span>
+    <span>這些花時間的事，<i>交給 AI</i></span>
+    <span>換成公司帳號，<i>你會多了這些</i></span>
+    <span>同事已經在用了：<i>種子成員 <span>15</span> 人</i></span>
+    <span>Plus 和 Business，<i>差在哪裡？</i></span>
+    <span>先知道 <i>3 個常見誤解</i></span>
+    <span>回答 <i>2 個問題</i>，找出你的路線</span>
+    <span>開通當天：<i>每個人都要做的 4 件事</i></span>
+    <span>路線 A：<i>一鍵合併</i>進公司工作區</span>
+    <span>路線 B：<i>整理記憶</i>後帶過來</span>
+    <span>哪些<i>帶得走</i>、哪些帶不走</span>
+    <span>只要記得 <i>3 個約定</i></span>
+    <span>什麼時候開始？<i>春節前全員完成</i></span>
+  </div>
+
+  <div class="dk-pgs">
+    <!-- 0 8CA 的 A -->
+    <section class="dk-pg" data-k="1">
+      <div class="dk-eq">
+        <div class="dk-c dk-tile an dr" style="--d:.1s"><span class="bd">8</span><b>數據</b><small>8TDB<br>公司的數字</small></div>
+        <div class="op an" style="--d:.3s">＋</div>
+        <div class="dk-c dk-tile an dr" style="--d:.4s"><span class="bd">C</span><b>工作背景</b><small>Confluence<br>前提・決定・經過</small></div>
+        <div class="op an" style="--d:.6s">＋</div>
+        <div class="dk-c hi dk-tile isA an dr" style="--d:.7s"><span class="bd">A</span><b>AI</b><small>ChatGPT Business<br>每個人自己的 AI</small></div>
+        <div class="op an" style="--d:.9s">＝</div>
+        <div class="dk-c dark dk-tile res an dr" style="--d:1.0s"><b>8CA</b><small>和 AI 一起，<br>解決工作上的課題</small></div>
+      </div>
+      <div class="dk-g dk-g2" style="margin-top:34px">
+        <div class="dk-c dk-aim an ri" style="--d:1.4s"><span class="dk-tag">目的</span><p>讓每位同仁都能和 AI 一起工作，<b>提升工作的效率與水平</b></p></div>
+        <div class="dk-c dk-aim an ri" style="--d:1.6s"><span class="dk-tag dk">這份指南</span><p>8TDB 和 Confluence 已經說明過了。這次說明 <b>A：公司的 ChatGPT Business</b>，春節前每個人都能用</p></div>
+      </div>
+    </section>
+
+    <!-- 1 交給 AI 的事 -->
+    <section class="dk-pg" data-k="1">
+      <div class="dk-g dk-g4">
+        <div class="dk-c dk-box an dr" style="--d:.1s"><div class="ic">🧹</div><h3>瑣碎的小事</h3><p>會議紀錄、信件草稿、翻譯、整理格式。說清楚要什麼，它先幫你做好八成。</p></div>
+        <div class="dk-c dk-box an dr" style="--d:.3s"><div class="ic">📈</div><h3>分析</h3><p>上傳 Excel、PDF，問它「重點是什麼」「哪裡不太對勁」。</p></div>
+        <div class="dk-c dk-box an dr" style="--d:.5s"><div class="ic">🔎</div><h3>找數據、找資料</h3><p>連上 8TDB，用問的就能查數據；連上 Confluence，過去的資料也找得到。</p></div>
+        <div class="dk-c dk-box an dr" style="--d:.7s"><div class="ic">🗂️</div><h3>做資料</h3><p>簡報架構、報告初稿、整理成表格。從空白頁開始的那一段，交給它。</p></div>
+      </div>
+      <div class="dk-band an ri" style="--d:1.1s">你負責<b>判斷和決定</b>，AI 幫你做<b>前面的準備</b>。</div>
+    </section>
+
+    <!-- 2 好處 -->
+    <section class="dk-pg" data-k="2">
+      <div class="dk-g dk-g4" style="gap:16px">
+        <div class="dk-c dk-ben an" style="--d:.1s"><span class="n">1</span><div><h3>手續變簡單</h3><p>不用再每月刷卡、留憑證、上 ERP 申請費用。</p></div></div>
+        <div class="dk-c dk-ben an" style="--d:.2s"><span class="n">2</span><div><h3>公私分明</h3><p>工作用公司帳號，私人的事用自己的帳號。</p></div></div>
+        <div class="dk-c dk-ben an" style="--d:.3s"><span class="n">3</span><div><h3>同事看不到你的對話</h3><p>管理員有權限，但沒有必要不會去看；平常只看使用統計。</p></div></div>
+        <div class="dk-c dk-ben an" style="--d:.4s"><span class="n">4</span><div><h3>不拿去訓練 AI</h3><p>公司工作區的資料預設不用於訓練，不用自己去關。</p></div></div>
+        <div class="dk-c dk-ben hi an" style="--d:.5s"><span class="n">5</span><div><h3>直接連公司的數據</h3><p>8TDB 只開放公司帳號。春節後用問的就能查數據。</p></div></div>
+        <div class="dk-c dk-ben an" style="--d:.6s"><span class="n">6</span><div><h3>好方法一起用</h3><p>同事做好的 GPTs、專案，可以在工作區裡分享。</p></div></div>
+        <div class="dk-c dk-ben an" style="--d:.7s"><span class="n">7</span><div><h3>功能不會變少</h3><p>現在 Plus 用得到的，Business 都有。</p></div></div>
+        <div class="dk-c dk-ben hi an" style="--d:.8s"><span class="n">8</span><div><h3>搬家有人幫</h3><p>用公司信箱註冊的人，對話和記憶可以一鍵搬過來。</p></div></div>
+      </div>
+    </section>
+
+    <!-- 3 種子成員 -->
+    <section class="dk-pg" data-k="3">
+      <div class="dk-g dk-g3">
+        <div class="dk-c dk-stat an" style="--d:.1s"><b>14<small>／15</small></b><span>人已經用在日常工作</span></div>
+        <div class="dk-c dk-stat an" style="--d:.3s"><b>11</b><span>人用過連結公司資料的功能</span></div>
+        <div class="dk-c dk-stat an" style="--d:.5s"><b>0</b><span>人表示不想繼續用</span></div>
+      </div>
+      <div class="dk-g dk-g3" style="margin-top:24px">
+        <div class="dk-c dk-qt an ri" style="--d:.9s">「不用自己蒐集很多數據，連上 8TDB 讓 GPT 自己查找，很方便。」<small>種子成員</small></div>
+        <div class="dk-c dk-qt an ri" style="--d:1.1s">「省去很多自行開發的時間。排程讓它每天早上整理一份資安新聞。」<small>種子成員</small></div>
+        <div class="dk-c dk-qt an ri" style="--d:1.3s">「搬家時重新整理了一次記憶，反而成為很好的盤點機會。」<small>種子成員</small></div>
+      </div>
+    </section>
+
+    <!-- 4 Plus vs Business -->
+    <section class="dk-pg" data-k="4">
+      <div class="dk-vs">
+        <div class="dk-c an dr" style="--d:.1s"><small>CHATGPT PLUS</small><h3>個人自己訂的辦公工具</h3></div>
+        <div class="mid an" style="--d:.35s">VS</div>
+        <div class="dk-c hi an dr" style="--d:.5s"><small>CHATGPT BUSINESS</small><h3>公司建立的共用工作區</h3></div>
+      </div>
+      <div class="dk-ft">
+        <div class="dk-c an" style="--d:.8s"><h4>公司工作區<em>特有</em></h4><p>個人和公司工作區可以切換，對話各自分開</p></div>
+        <div class="dk-c an" style="--d:.9s"><h4>團隊協作<em class="u">升級</em></h4><p>專案、GPT 可分享給成員或群組</p></div>
+        <div class="dk-c an" style="--d:1.0s"><h4>模型訓練<em class="u">預設不同</em></h4><p>Business 預設不用來訓練</p></div>
+        <div class="dk-c an" style="--d:1.1s"><h4>共用專案管控<em>特有</em></h4><p>管理員可設定誰能建立、分享</p></div>
+        <div class="dk-c an" style="--d:1.2s"><h4>成員與權限<em>特有</em></h4><p>集中管理成員、角色、席位</p></div>
+        <div class="dk-c an" style="--d:1.3s"><h4>使用統計<em>特有</em></h4><p>看的是統計，不是聊天內容</p></div>
+        <div class="dk-c an" style="--d:1.4s"><h4>你的對話<em class="s">兩者皆私人</em></h4><p>同事看不到；分享的才看得到</p></div>
+        <div class="dk-c an" style="--d:1.5s"><h4>企業登入<em>特有</em></h4><p>可用公司帳號單一登入（評估中）</p></div>
+      </div>
+      <p class="dk-same an ri" style="--d:1.8s"><b>兩者相同：</b>都在 ChatGPT 裡工作、都能建立和分享 Projects、訂閱都不包含 API。</p>
+    </section>
+
+    <!-- 5 誤解 -->
+    <section class="dk-pg" data-k="5">
+      <div class="dk-g dk-g3">
+        <div class="dk-c dk-myth an dr" style="--d:.1s"><span class="x">✕「資料不訓練，所以什麼都能輸入」</span><h3>不訓練 ≠<br>機密可以輸入</h3><p>公司機密、客戶個資，還是要照公司的資料分級處理。</p></div>
+        <div class="dk-c dk-myth an dr" style="--d:.4s"><span class="x">✕「共用專案跟私人聊天一樣」</span><h3>共用專案<br>大家都看得到</h3><p>加入的人看得到專案裡的對話、檔案和指示。分享前先確認。</p></div>
+        <div class="dk-c dk-myth an dr" style="--d:.7s"><span class="x">✕「每個人的額度都一樣」</span><h3>依席位<br>與設定而不同</h3><p>一般的 Standard 席位和現在的 Plus 差不多；用量大的工作，公司可改配 Premium。</p></div>
+      </div>
+    </section>
+
+    <!-- 6 路線 -->
+    <section class="dk-pg" data-k="6">
+      <div class="dk-flow">
+        <div class="dk-node qn an" style="left:0;top:190px;width:310px;--d:.1s"><small>問題 ①</small>你現在有個人的<br>ChatGPT 帳號嗎？</div>
+        <div class="dk-lnw" style="position:absolute;left:310px;top:238px;width:110px"><i class="dk-ln" style="display:block;width:100%;--d:.4s"></i></div>
+        <span class="dk-lb an" style="left:338px;top:200px;--d:.5s">有</span>
+        <div class="dk-node qn an" style="left:420px;top:190px;width:330px;--d:.6s"><small>問題 ②</small>那個帳號是用<br>哪個信箱登入的？</div>
+        <div style="position:absolute;left:150px;top:300px;width:120px;transform:rotate(90deg);transform-origin:0 50%"><i class="dk-ln" style="display:block;width:100%;--d:.5s"></i></div>
+        <span class="dk-lb an" style="left:166px;top:330px;--d:.6s">沒有</span>
+        <div class="dk-c dk-node rt an" style="left:0;top:420px;width:420px;--d:.8s"><span class="L">C</span><div><b>直接開始</b><small>接受邀請，用公司信箱登入</small></div></div>
+        <div style="position:absolute;left:750px;top:238px;width:212px;transform:rotate(-45deg);transform-origin:0 50%"><i class="dk-ln" style="display:block;width:100%;--d:.9s"></i></div>
+        <div style="position:absolute;left:750px;top:238px;width:150px"><i class="dk-ln" style="display:block;width:100%;--d:1.0s"></i></div>
+        <div style="position:absolute;left:750px;top:238px;width:234px;transform:rotate(50deg);transform-origin:0 50%"><i class="dk-ln" style="display:block;width:100%;--d:1.1s"></i></div>
+        <span class="dk-lb an" style="left:770px;top:120px;--d:1.1s">公司信箱</span>
+        <span class="dk-lb an" style="left:776px;top:250px;--d:1.2s">Gmail 等</span>
+        <span class="dk-lb an" style="left:690px;top:356px;--d:1.3s">改過／不記得</span>
+        <div class="dk-c hi dk-node rt an" style="left:910px;top:20px;width:562px;--d:1.3s"><span class="L">A</span><div><b>合併進公司工作區（建議）</b><small>對話、記憶、Projects 一鍵搬過來</small></div></div>
+        <div class="dk-c dk-node rt an" style="left:910px;top:196px;width:562px;--d:1.5s"><span class="L">B</span><div><b>整理記憶後帶過來</b><small>兩個帳號不同，不能一鍵合併</small></div></div>
+        <div class="dk-c dk-node rt d an" style="left:910px;top:372px;width:562px;--d:1.7s"><span class="L">D</span><div><b>先交給我們處理</b><small>改過信箱的帳號，加入時可能卡住</small></div></div>
+      </div>
+    </section>
+
+    <!-- 7 開通當天 -->
+    <section class="dk-pg" data-k="7">
+      <div class="dk-g dk-g4">
+        <div class="dk-c dk-step an dr" style="--d:.1s;flex-direction:column;height:400px"><span class="n">1</span><b>收到邀請信</b><span>確認寄件者是 OpenAI、工作區是公司的。不要轉寄邀請信。</span></div>
+        <div class="dk-c dk-step an dr" style="--d:.35s;flex-direction:column;height:400px"><span class="n">2</span><b>用公司信箱登入</b><span>一定要用收到邀請的 @mail.benesse.com.tw。不要另開新帳號。</span></div>
+        <div class="dk-c dk-step an dr" style="--d:.6s;flex-direction:column;height:400px"><span class="n">3</span><b>選公司的工作區</b><span>網頁版從左下角的個人選單切換；手機版在側邊欄。</span></div>
+        <div class="dk-c hi dk-step an dr" style="--d:.85s;flex-direction:column;height:400px"><span class="n">4</span><b>開啟多重驗證（MFA）</b><span>設定 → <span class="dk-path">安全性與登入</span> → 多重驗證。<br><strong>一定要開，開了不可以自己關。</strong></span></div>
+      </div>
+      <div class="dk-band an ri" style="--d:1.2s">設定卡住時，<b>不要自己關掉 MFA</b>，先找詩雅。</div>
+    </section>
+
+    <!-- 8 路線 A -->
+    <section class="dk-pg" data-k="8">
+      <div class="dk-steps dk-g2" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+        <div class="dk-c dk-step an ri" style="--d:.1s"><span class="n">1</span><div><b>確認付款的地方</b><span>手機（Apple／Google）訂閱的，要自己到手機取消。網頁訂閱的會自動取消並退款。</span></div></div>
+        <div class="dk-c dk-step an ri" style="--d:.25s"><span class="n">2</span><div><b>刪掉私人的對話</b><span>記憶裡私人的內容也一起刪（<span class="dk-path">個人化 → 記憶</span>）。</span></div></div>
+        <div class="dk-c dk-step an ri" style="--d:.4s"><span class="n">3</span><div><b>重要的東西先存一份</b><span>想留完整備份就先申請匯出（最多 7 天）。合併後不能再自己匯出。</span></div></div>
+        <div class="dk-c dk-step an ri" style="--d:.55s"><span class="n">4</span><div><b>接受邀請，切到公司工作區</b><span>照「開通當天」的步驟。</span></div></div>
+        <div class="dk-c hi dk-step an ri" style="--d:.7s"><span class="n">5</span><div><b>按「合併」</b><span><span class="dk-path">設定 → 資料控管 → Merge data from your personal workspace</span> → Merge</span></div></div>
+        <div class="dk-c dk-step an ri" style="--d:.85s"><span class="n">6</span><div><b>檢查搬過來的內容</b><span>對話、Projects、記憶都在嗎？自建 GPT 預設是私人的。</span></div></div>
+      </div>
+      <div class="dk-stamp an st" style="right:64px;top:-60px;--d:1.3s">合併不能復原</div>
+    </section>
+
+    <!-- 9 路線 B -->
+    <section class="dk-pg" data-k="9">
+      <div class="dk-steps" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+        <div class="dk-c dk-step an ri" style="--d:.1s"><span class="n">1</span><div><b>（建議）申請匯出備份</b><span>收到第 2 封「已就緒」的信，24 小時內下載。</span></div></div>
+        <div class="dk-c hi dk-step an ri" style="--d:.25s"><span class="n">2</span><div><b>用提示語整理記憶</b><div class="dk-prompt">請整理你記得關於我的所有資訊，分成「工作背景、重要專案、公司人員、回覆偏好、個人生活、敏感資料」六類逐條列出。</div></div></div>
+        <div class="dk-c dk-step an ri" style="--d:.4s"><span class="n">3</span><div><b>做工作版交接包</b><span>只留工作的部分，存到自己的 OneDrive。密碼直接刪掉。</span></div></div>
+        <div class="dk-c dk-step an ri" style="--d:.55s"><span class="n">4</span><div><b>複製自訂指示</b><span>也記下常用的 Projects、GPTs。</span></div></div>
+        <div class="dk-c dk-step an ri" style="--d:.7s"><span class="n">5</span><div><b>放進公司帳號</b><span>重要的記憶在「管理記憶」逐條加；其他整段貼上，請它記住。</span></div></div>
+        <div class="dk-c dk-step an ri" style="--d:.85s"><span class="n">6</span><div><b>個人帳號可以保留</b><span>私人的事繼續用；工作的事用公司帳號。不要刪除帳號。</span></div></div>
+      </div>
+    </section>
+
+    <!-- 10 帶得走 -->
+    <section class="dk-pg" data-k="10">
+      <table class="dk-tb an ri" style="--d:.15s">
+        <thead><tr><th>項目</th><th>路線 A（合併）</th><th>路線 B（Gmail 帳號，手動）</th></tr></thead>
+        <tbody>
+          <tr><td>對話紀錄</td><td>✅ 自動搬過來</td><td>✕ 匯出檔保存，需要時當參考</td></tr>
+          <tr><td>記憶・自訂指示</td><td>✅ 自動搬過來</td><td>△ 整理後自己放進去</td></tr>
+          <tr><td>自己建的 Projects・GPTs</td><td>✅ 連同設定和檔案</td><td>△ 自己重建</td></tr>
+          <tr><td>圖片、產出的檔案</td><td>✅ 大多會搬</td><td>△ 自己個別下載</td></tr>
+          <tr><td>Plus 訂閱</td><td>網頁訂閱自動取消並退款</td><td>由你決定是否取消</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 11 約定 -->
+    <section class="dk-pg" data-k="11">
+      <div class="dk-g dk-g3">
+        <div class="dk-c dk-pr an dr" style="--d:.1s"><span class="e">🙅</span><div><h3>個資、密碼不放進去</h3><p>顧客的姓名、電話、會員編號明細，還有密碼。不確定就先問。</p></div></div>
+        <div class="dk-c dk-pr an dr" style="--d:.35s"><span class="e">👀</span><div><h3>答案自己看過再用</h3><p>數字、程式和對外的文字，看過再用。</p></div></div>
+        <div class="dk-c dk-pr an dr" style="--d:.6s"><span class="e">🏢</span><div><h3>工作用公司帳號</h3><p>私人的事用自己的帳號。</p></div></div>
+      </div>
+      <div class="dk-lv an ri" style="--d:1s">
+        <div class="g"><b>🟢 可以放</b><span>公開資訊、文章草稿、翻譯、自己的筆記、彙總後的數字</span></div>
+        <div class="y"><b>🟡 處理後才能放</b><span>拿掉姓名、電話、會員編號後的企劃、客服紀錄、業績明細</span></div>
+        <div class="r"><b>🔴 不能放</b><span>顧客個資明細、信用卡、密碼・API Key、人件費・考核</span></div>
+      </div>
+    </section>
+
+    <!-- 12 時程・結尾 -->
+    <section class="dk-pg" data-k="12">
+      <div class="dk-tl">
+        <i class="bar"></i>
+        <div class="s an ri" style="--d:.3s"><b>11〜12 月</b><span>填問卷，確認你的帳號；經營會成員先開始</span></div>
+        <div class="s an ri" style="--d:.6s"><b>12 月中</b><span>AI 使用注意事項說明</span></div>
+        <div class="s an ri" style="--d:.9s"><b>2027 年 1 月</b><span>分批開通，開通前有基礎說明</span></div>
+        <div class="s an ri" style="--d:1.2s"><b>春節前</b><span>全員開通完成</span></div>
+        <div class="s an ri" style="--d:1.5s"><b>春節後</b><span>用 ChatGPT Business 直接查 8TDB</span></div>
+      </div>
+      <div class="dk-c dark dk-end an" style="--d:1.9s"><div><h3>有任何問題，都可以請教<em>王詩雅</em></h3><p>完整的步驟、常見問題，都在「完整手冊」裡。</p></div><button type="button" class="dk-btn" data-to-read>看完整手冊 →</button></div>
+    </section>
+  </div>
+
+  <div class="dk-num" id="dkNum"></div>
+  <div class="dk-hint">← → ↑ ↓・滾輪・點一下 翻頁｜N 備註｜M 完整手冊</div>
+  <nav class="dk-nav" aria-label="翻頁"><button type="button" class="ar" id="dkPrev" aria-label="上一頁">‹</button><div class="dk-dots" id="dkDots"></div><button type="button" class="ar" id="dkNext" aria-label="下一頁">›</button></nav>
+  <div class="dk-notes" id="dkNotes" hidden><b>講者備註（按 N 關閉）</b><div id="dkNotesBody"></div></div>
+  <div class="dk-prog" id="dkProg"></div>
+</div>
+<button type="button" id="dkModeBtn" data-to-read>完整手冊（M）</button>
+</div>
+<button type="button" id="codesBtn" title="長按：顯示／隱藏每個區塊的編號（修改時用）" aria-label="長按顯示區塊編號">#</button>
+<div id="codeToast" role="status" aria-live="polite"></div>
+
 <header>
   <div class="wrap">
-    <span class="tag">台北分公司・ChatGPT Business 全員導入</span>
-    <h1>把瑣碎的事交給 AI，<br><em>把時間留給重要的工作。</em></h1>
-    <p>大家本來就在用 ChatGPT 了。這次，公司要把你現在用的 ChatGPT，升級成<strong>公司的工作帳號：ChatGPT Business</strong>。用公司信箱登入，跟 Outlook 一樣，就是你的工作工具。這一頁是導讀，也是操作手冊。</p>
+    <span class="tag">8CA ＝ 8TDB ＋ Confluence ＋ AI</span>
+    <h1>春節後，全公司一起<br><em>和 AI 用公司的數據工作。</em></h1>
+    <p>11/17 經營會說明的 8CA，「A」就是每個人自己的 AI：<strong>公司的 ChatGPT Business</strong>。目的是讓每位同仁都能和 AI 一起工作，<strong>提升工作的效率與水平</strong>。大家本來就在用 ChatGPT 了，這次是升級成公司的工作帳號，用公司信箱登入，跟 Outlook 一樣。這一頁是導讀，也是操作手冊。</p>
+    <button type="button" id="toDeck">▶ 簡報模式</button>
   </div>
 </header>
 
@@ -189,6 +633,18 @@ a{color:var(--accent)}
 
 <!-- ================= 導讀 ================= -->
 <section class="panel active" id="intro" role="tabpanel" aria-labelledby="t-intro">
+
+  <div class="block">
+    <span class="eyebrow">8CA 的 A</span>
+    <h2>8TDB ＋ Confluence ＋ AI ＝ 8CA</h2>
+    <p class="lead">三樣都齊，每個人就能用公司自己的數據和背景，和 AI 一起找出工作上的課題與解方。</p>
+    <div class="grid g3">
+      <div class="card"><span class="icon">8</span><h3>數據｜8TDB</h3><p class="muted">公司的數字：預算、實績、商品銷售、庫存、會員等。</p></div>
+      <div class="card"><span class="icon">C</span><h3>工作背景｜Confluence</h3><p class="muted">工作的前提、決定與經過。</p></div>
+      <div class="card" style="border:2px solid var(--brand)"><span class="icon" style="color:var(--brand)">A</span><h3>AI｜ChatGPT Business</h3><p class="muted">每個人自己的 AI。<strong>這份指南說明的就是這一項。</strong></p></div>
+    </div>
+    <div class="info"><p><strong>目的：</strong>讓每位同仁都能和 AI 一起工作，提升工作的效率與水平。<br>效率：想知道的數字，直接問自己的 AI，不用再拜託別人、等報表。水平：用公司自己的數據和工作背景，和 AI 一起找出課題與解方。</p></div>
+  </div>
 
   <div class="block">
     <span class="eyebrow">交給 AI 的事</span>
@@ -672,6 +1128,142 @@ a{color:var(--accent)}
     try{localStorage.setItem(KEY,JSON.stringify(boxes.map(function(b){return b.checked;})));}catch(e){}
   }
   boxes.forEach(function(b){b.addEventListener('change',upd);}); upd();
+})();
+</script>
+<script>
+/* ===== 簡報模式（動態）＋閱讀模式切換 ===== */
+(function(){
+  'use strict';
+  var DE=document.documentElement, $=function(s){return document.querySelector(s);}, $$=function(s){return [].slice.call(document.querySelectorAll(s));};
+  var stage=$('#stage'), pgs=$$('.dk-pg'), caps=$$('.dk-cap > span'), N=pgs.length, k=0;
+  // 頁面點點（0＝開場）
+  var dots=[]; for(var di=0;di<=N;di++){(function(i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label',i?('第 '+i+' 頁'):'開場');b.addEventListener('click',function(e){e.stopPropagation();go(i);});$('#dkDots').appendChild(b);dots.push(b);})(di);}
+  $('#dkPrev').addEventListener('click',function(e){e.stopPropagation();go(k-1);});
+  $('#dkNext').addEventListener('click',function(e){e.stopPropagation();go(k+1);});
+  var W=[0,0,1,1,1,1,1,2,2,2,2,2,3,3];
+  var NOTES=[
+    '開場：11/17 經營會說明了 8CA：春節後，讓全公司都能和 AI 一起，用公司的數據工作。今天說明其中的 A：每個人自己的 AI，也就是公司的 ChatGPT Business。',
+    '8CA 是三樣東西合起來：8TDB 放公司的數據，Confluence 放工作的前提、決定與經過，AI 是每個人用公司帳號的 ChatGPT Business。三樣都齊，每個人就能用公司自己的數據和背景，和 AI 一起找出課題與解方。目的是提升工作的效率與水平。大家本來就在用 ChatGPT 了，這次是升級成公司的工作帳號。今天回答 3 個問題：對我有什麼好處、我要怎麼開始、要記得什麼。',
+    '先講交給 AI 的事：瑣碎的小事、分析、找數據、做資料。你負責判斷和決定，AI 做前面的準備。',
+    '換成公司帳號的 8 個好處。重點是 1 手續變簡單（不用每月請款）、5 直接連公司的數據（8TDB 只開放公司帳號）、8 搬家有人幫。',
+    '15 位種子成員先用了 2 個月：14 人已經用在日常工作，沒有人不想繼續用。',
+    'Plus 是個人自己訂的工具，Business 是公司的共用工作區。日常 AI 能力很多相同，差別在協作範圍、公司管理和資料處理的預設。',
+    '3 個常見誤解。最重要的是第 1 個：不拿去訓練，不代表機密可以放進去。',
+    '每個人的情況不同，搬家方法也不同。回答 2 個問題就知道自己走哪條路線。開通前會請大家填問卷，確認帳號。',
+    '開通當天每個人都要做的 4 件事。特別是多重驗證：一定要開，開了不要自己關；卡住先找詩雅。',
+    '路線 A：個人帳號是用公司信箱註冊的人，可以一鍵合併。合併不能復原，所以先刪掉私人的對話、存好重要的東西。網頁付費的 Plus 會自動取消並退款。',
+    '路線 B：個人帳號是 Gmail 的人，兩個帳號不同，用提示語把工作上的記憶整理好，再放進公司帳號。個人帳號可以保留給私人用。',
+    '合併和手動的差別：合併幾乎都會自動搬過來；手動要自己整理和重建。',
+    '只要記得 3 個約定：個資和密碼不放、答案看過再用、工作用公司帳號。完整的規範定稿後再公布。',
+    '時程：12 月經營會成員先開始，1 月分批開通，春節前全員完成。任何問題都可以找詩雅，完整步驟在「完整手冊」。'
+  ];
+  var isDeck=function(){return DE.classList.contains('deck');};
+  function fit(){var s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform='translate(-50%,-50%) scale('+s+')';}
+  function go(n,instant){
+    n=Math.max(0,Math.min(N,n)); k=n;
+    stage.dataset.k=k; stage.dataset.w=W[k]||0; stage.classList.toggle('k1',k>0); stage.classList.toggle('k0',k===0);
+    dots.forEach(function(d,i){d.classList.toggle('on',i===k);d.setAttribute('aria-current',i===k?'step':'false');});
+    $('#dkPrev').disabled=(k===0); $('#dkNext').disabled=(k===N);
+    pgs.forEach(function(p,i){var on=(i+1===k);p.classList.toggle('on',on);});
+    caps.forEach(function(c,i){c.classList.toggle('on',i+1===k);c.classList.toggle('past',i+1<k);});
+    $('#dkProg').style.width=(k/N*100)+'%';
+    $('#dkNum').textContent=k?(k+' / '+N):'';
+    $('#dkNotesBody').textContent=NOTES[k]||'';
+    try{history.replaceState(null,'','#s='+k);}catch(e){}
+  }
+  function setMode(m){
+    var deck=(m==='deck');
+    DE.classList.toggle('deck',deck);
+    if(deck){fit();go(k);document.activeElement&&document.activeElement.blur&&document.activeElement.blur();}
+    else{try{history.replaceState(null,'','#intro');}catch(e){} window.scrollTo(0,0);}
+  }
+  // 起始模式：寬螢幕＝簡報；手機・窄畫面＝閱讀。#分頁名＝閱讀；#s=N＝簡報第 N 步
+  var canDeck=function(){return innerWidth>=900&&innerHeight>=500;};
+  if(canDeck())DE.classList.add('can-deck');
+  var h=location.hash.replace('#',''), m=h.match(/^s=(\d+)$/);
+  var tabHash=document.getElementById(h)&&document.getElementById(h).getAttribute('role')==='tabpanel';
+  if(canDeck()&&!tabHash){k=m?+m[1]:0;setMode('deck');}
+  stage.classList.add('dk-js'); requestAnimationFrame(function(){stage.classList.add('dk-ready');});
+
+  addEventListener('resize',function(){DE.classList.toggle('can-deck',canDeck()); if(isDeck()){ if(!canDeck())setMode('read'); else fit(); }});
+  addEventListener('keydown',function(e){
+    if(!isDeck()){ if((e.key==='p'||e.key==='P')&&canDeck()&&!/INPUT|TEXTAREA/.test(e.target.tagName))setMode('deck'); return; }
+    var key=e.key;
+    if(key==='ArrowRight'||key==='ArrowDown'||key==='PageDown'||key===' '||key==='Enter'){e.preventDefault();go(k+1);}
+    else if(key==='ArrowLeft'||key==='ArrowUp'||key==='PageUp'||key==='Backspace'){e.preventDefault();go(k-1);}
+    else if(key==='Home'){go(0);} else if(key==='End'){go(N);}
+    else if(key==='n'||key==='N'){var nt=$('#dkNotes');nt.hidden=!nt.hidden;}
+    else if(key==='m'||key==='M'||key==='Escape'){setMode('read');}
+  });
+  // 滑鼠左鍵點畫面＝下一頁（按鈕・點點・編號除外）
+  $('#deck').addEventListener('click',function(e){
+    if(e.button!==0||e.target.closest('button,.code-tag,a'))return;
+    go(k+1);
+  });
+  // 滑鼠滾輪：往下＝下一頁、往上＝上一頁（連續捲動只算一次）
+  var wheelLock=0;
+  addEventListener('wheel',function(e){
+    if(!isDeck())return; e.preventDefault();
+    var now=Date.now(); if(now<wheelLock||Math.abs(e.deltaY)<8)return;
+    wheelLock=now+650; go(k+(e.deltaY>0?1:-1));
+  },{passive:false});
+  // 觸控滑動
+  var sx=null; $('#deck').addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+  $('#deck').addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)go(k+(dx<0?1:-1));sx=null;});
+  $$('[data-to-read]').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();setMode('read');});});
+  $('#toDeck').addEventListener('click',function(){k=0;setMode('deck');});
+  // 滑鼠不動時隱藏游標
+  var t; addEventListener('mousemove',function(){document.body.classList.remove('idle');clearTimeout(t);t=setTimeout(function(){document.body.classList.add('idle');},2500);});
+
+  // ===== 修改用的編號：右下 # 長按 → 每個區塊出現編號，點編號就複製 =====
+  function assignCodes(){
+    // 簡報：S頁-序（S0＝開場；T＝每頁標題）
+    $('.dk-hero').dataset.code='S0-1'; $('.dk-q').dataset.code='S0-2';
+    caps.forEach(function(c,i){c.dataset.code='S'+(i+1)+'-T';});
+    pgs.forEach(function(p,i){var n=0;[].slice.call(p.querySelectorAll('.an,.dk-tb tr')).forEach(function(el){if(el.closest('[data-code]')&&el.closest('[data-code]')!==el&&el.closest('.dk-pg')===p&&el.closest('[data-code]').closest('.dk-pg')===p)return;el.dataset.code='S'+(i+1)+'-'+(++n);});});
+    // 完整手冊：分頁代號-區塊-項目（例：開始-3-2）
+    var TAB={intro:'導讀',diff:'比較',start:'開始',rules:'約定',faq:'問答',admin:'管理'};
+    $$('section.panel').forEach(function(sec){var t=TAB[sec.id]||sec.id;
+      [].slice.call(sec.querySelectorAll(':scope > .block')).forEach(function(b,bi){
+        b.dataset.code=t+'-'+(bi+1);
+        var j=0;[].slice.call(b.querySelectorAll('.card,.quote,.feat,ol.steps > li,details,.tbl tbody tr,.check li,.chooser,.vs > .card,.info,.note')).forEach(function(el){el.dataset.code=t+'-'+(bi+1)+'-'+(++j);});
+      });
+    });
+    $('body > header').dataset.code='頁首';
+  }
+  var toast=$('#codeToast'),tt;
+  function say(msg){toast.textContent=msg;toast.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('on');},1600);}
+  function showCodes(on){
+    document.body.classList.toggle('show-codes',on);
+    $$('.code-tag').forEach(function(t){t.remove();});
+    $$('.has-code').forEach(function(el){el.classList.remove('has-code');});
+    if(!on)return;
+    assignCodes();
+    $$('[data-code]').forEach(function(el){
+      if(getComputedStyle(el).position==='static')el.classList.add('has-code');
+      var tag=document.createElement('span');tag.className='code-tag';tag.textContent=el.dataset.code;
+      tag.addEventListener('click',function(e){e.stopPropagation();var c=el.dataset.code;
+        (navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(c):Promise.reject()).then(function(){say('已複製「'+c+'」');},function(){say('編號：'+c);});});
+      el.appendChild(tag);
+    });
+  }
+  (function(){
+    var btn=$('#codesBtn'),timer=null,held=false;
+    function start(e){e.preventDefault();held=false;btn.classList.add('hold');timer=setTimeout(function(){held=true;btn.classList.remove('hold');showCodes(!document.body.classList.contains('show-codes'));say(document.body.classList.contains('show-codes')?'已顯示編號：點編號可複製':'已隱藏編號');},550);}
+    function end(e){btn.classList.remove('hold');clearTimeout(timer);if(!held&&e.type!=='pointerleave')say('長按 # 顯示／隱藏編號');}
+    btn.addEventListener('pointerdown',start);btn.addEventListener('pointerup',end);btn.addEventListener('pointerleave',function(){btn.classList.remove('hold');clearTimeout(timer);});
+    btn.addEventListener('click',function(e){e.stopPropagation();});
+    btn.addEventListener('contextmenu',function(e){e.preventDefault();});
+  })();
+
+  // 閱讀模式：捲到畫面內時浮現
+  if('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    DE.classList.add('rv-js');
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('rv-in');io.unobserve(en.target);}});},{rootMargin:'0px 0px -8% 0px'});
+    var watch=function(){$$('main .card,main .quote,main ol.steps li,main .feat,main details,main .tbl').forEach(function(el){if(!el.classList.contains('rv-in'))io.observe(el);});};
+    watch();
+    $$('[role="tab"]').forEach(function(b){b.addEventListener('click',function(){setTimeout(watch,30);});});
+  }
 })();
 </script>
 </body>
