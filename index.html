@@ -526,9 +526,9 @@ a{color:var(--accent)}
         <div class="dk-c dk-step an dr" style="--d:.1s;flex-direction:column;height:400px"><span class="n">1</span><b>收到邀請信</b><span>確認寄件者是 OpenAI、工作區是公司的。不要轉寄邀請信。</span></div>
         <div class="dk-c dk-step an dr" style="--d:.35s;flex-direction:column;height:400px"><span class="n">2</span><b>用公司信箱登入</b><span>一定要用收到邀請的 @mail.benesse.com.tw。不要另開新帳號。</span></div>
         <div class="dk-c dk-step an dr" style="--d:.6s;flex-direction:column;height:400px"><span class="n">3</span><b>選公司的工作區</b><span>網頁版從左下角的個人選單切換；手機版在側邊欄。</span></div>
-        <div class="dk-c hi dk-step an dr" style="--d:.85s;flex-direction:column;height:400px"><span class="n">4</span><b>開啟多重驗證（MFA）</b><span>設定 → <span class="dk-path">安全性與登入</span> → 多重驗證。<br><strong>一定要開，開了不可以自己關。</strong></span></div>
+        <div class="dk-c hi dk-step an dr" style="--d:.85s;flex-direction:column;height:400px"><span class="n">4</span><b>寫「我的工作說明」</b><span>設定 → <span class="dk-path">個人化</span> → 自訂指示：寫上你是誰、做什麼、希望怎麼回答。</span></div>
       </div>
-      <div class="dk-band an ri" style="--d:1.2s">設定卡住時，<b>不要自己關掉 MFA</b>，先找詩雅。</div>
+      <div class="dk-band an ri" style="--d:1.2s">多重驗證（MFA）<b>不用另外設定</b>；登入卡住時，不要另開帳號，先請教詩雅。</div>
     </section>
 
     <!-- 8 路線 A -->
@@ -800,12 +800,12 @@ a{color:var(--accent)}
 
   <div class="block">
     <span class="eyebrow">每個人都要做</span>
-    <h2>開通當天：接受邀請、設定多重驗證</h2>
+    <h2>開通當天：接受邀請、登入公司工作區</h2>
     <ol class="steps">
       <li><b>收到邀請信</b><span>確認寄件者是 OpenAI、工作區名稱是公司的。不要轉寄邀請信。</span></li>
       <li><b>用公司信箱登入</b><span>一定要用收到邀請的公司信箱（@mail.benesse.com.tw）。不要另外開新帳號，否則會看不到公司的工作區。</span></li>
       <li><b>選公司的工作區</b><span>網頁版從左下角的個人選單切換工作區；手機版在側邊欄。</span></li>
-      <li><b>開啟多重驗證（MFA）</b><span>設定 → <span class="path">安全性與登入</span> → 多重驗證。可用驗證器 App、簡訊或 Passkey。<strong>公司規定一定要開，開了不可以自己關。</strong>設定卡住時先找詩雅。</span></li>
+      <li><b>多重驗證（MFA）不用另外設定</b><span>公司帳號不需要另外開多重驗證。個人帳號原本有開 MFA 的人，登入公司帳號時如果卡住，不要自己關閉或改設定，先請教詩雅。</span></li>
     </ol>
   </div>
 
@@ -847,7 +847,7 @@ a{color:var(--accent)}
     <div class="route-head"><span class="badge">C</span><div><h2>還沒有 ChatGPT 帳號</h2><p class="muted" style="margin:0">最簡單：直接開始</p></div></div>
     <ol class="steps">
       <li><b>接受邀請，用公司信箱登入</b><span>收到邀請時會自動幫你建立帳號。</span></li>
-      <li><b>設定多重驗證</b><span>照上面「開通當天」的步驟。</span></li>
+      <li><b>選公司的工作區</b><span>網頁版從左下角的個人選單切換；手機版在側邊欄。</span></li>
       <li><b>寫一段「我的工作說明」</b><span>設定 → <span class="path">個人化</span> → 自訂指示，寫上你是誰、做什麼、希望怎麼回答。</span>
         <div class="prompt">我是〇〇處〇〇組的同仁，負責〇〇。常做的工作：〇〇、〇〇。回答時：用繁體中文、結論先講、數字用表格。</div>
       </li>
@@ -888,7 +888,6 @@ a{color:var(--accent)}
     <h2>這幾項都打勾，就完成了</h2>
     <ul class="check" id="checklist">
       <li><label><input type="checkbox">用公司信箱登入，畫面顯示公司的工作區</label></li>
-      <li><label><input type="checkbox">多重驗證（MFA）已開啟</label></li>
       <li><label><input type="checkbox">讀過「約定・規則」分頁的 3 個約定</label></li>
       <li><label><input type="checkbox">自訂指示已設定（搬過來的，或新寫的「我的工作說明」）</label></li>
       <li><label><input type="checkbox">上傳一個 Excel 或 PDF，請它分析，有得到結果</label></li>
@@ -953,8 +952,8 @@ a{color:var(--accent)}
       <details><summary>匯出資料要等多久？</summary><p>最多可能要 7 天，收到信後下載連結 24 小時內有效，收到就馬上下載。公司工作區不能自己匯出，要匯出請在合併前、從個人工作區申請。</p></details>
       <details><summary>功能或用量會比現在少嗎？</summary><p>現在 Plus 用得到的功能，Business 都有，用量也和現在差不多。用完時的處理方式，見「約定・規則」分頁。</p></details>
       <details><summary>資料會被拿去訓練 AI 嗎？</summary><p>公司工作區的資料，預設不用於模型訓練。</p></details>
-      <details><summary>多重驗證（MFA）的手機換了、弄丟了怎麼辦？</summary><p>有設定其他驗證方式的話，登入時選另一個方式。全部都不能用時，要請 OpenAI 客服驗證身分（要幾天），所以建議至少設定兩種方式。遇到問題先找詩雅。</p></details>
-      <details><summary>出現「email_address_changed」錯誤</summary><p>這是個人帳號曾經改過登入信箱造成的，要請 OpenAI 客服處理。請不要另開新帳號，直接找詩雅（見路線 D）。</p></details>
+      <details><summary>個人帳號有開多重驗證（MFA），登入公司帳號時卡住了</summary><p>公司帳號不需要另外設定多重驗證。如果登入時一直要求驗證，或驗證器 App 只顯示個人帳號，請不要自己關閉或改設定，先請教詩雅，由管理員和 OpenAI 客服一起處理。</p></details>
+      <details><summary>出現「email_address_changed」錯誤</summary><p>這是個人帳號曾經改過登入信箱造成的，要請 OpenAI 客服處理。請不要另開新帳號，直接請教詩雅（見路線 D）。</p></details>
       <details><summary>AI 說錯了怎麼辦？</summary><p>它偶爾會說錯，而且說得很有自信。重要的數字、程式和對外的文字，自己看過再用。AI 的產出由使用的人負責。</p></details>
     </div>
   </div>
@@ -969,9 +968,9 @@ a{color:var(--accent)}
           <tr><td>沒收到匯出的信</td><td>先看垃圾郵件匣。匯出最多可能要 7 天；太久沒收到，可以重新申請。</td></tr>
           <tr><td>下載連結失效了</td><td>連結 24 小時後失效，重新申請匯出，收到就馬上下載。</td></tr>
           <tr><td>ZIP 打不開</td><td>重新下載一份，不要覆蓋原本的檔案。</td></tr>
-          <tr><td>沒收到邀請信</td><td>看垃圾郵件匣，再找詩雅重寄。</td></tr>
+          <tr><td>沒收到邀請信</td><td>看垃圾郵件匣，再請詩雅重寄。</td></tr>
           <tr><td>登入後看不到公司工作區</td><td>確認是用公司信箱登入、已經接受邀請；從個人選單切換工作區。不要另開新帳號。</td></tr>
-          <tr><td>找不到 Merge（合併）</td><td>確認登入的是有個人工作區的那個帳號（公司信箱），而且已經切到公司工作區。還是找不到，找詩雅。</td></tr>
+          <tr><td>找不到 Merge（合併）</td><td>確認登入的是有個人工作區的那個帳號（公司信箱），而且已經切到公司工作區。還是找不到，請教詩雅。</td></tr>
           <tr><td>已經取消 Plus，但還沒備份</td><td>取消後帳號會變成免費版，還是可以登入、申請匯出。不要刪除帳號。</td></tr>
           <tr><td>收到可疑的信</td><td>OpenAI 的信寄件者是 openai.com。其他網域、或要你輸入密碼的信，不要點，告訴詩雅。</td></tr>
         </tbody>
@@ -1021,7 +1020,7 @@ a{color:var(--accent)}
     <h3>開通後 1 週</h3>
     <ul class="check" style="margin:10px 0 24px">
       <li><label><input type="checkbox">全員都已接受邀請</label></li>
-      <li><label><input type="checkbox">全員都開啟 MFA（官方無法強制，逐一確認；SSO 與資訊討論中）</label></li>
+      <li><label><input type="checkbox">登入狀況逐一確認（公司帳號不另外開 MFA；個人帳號已有 MFA 的人特別留意）</label></li>
       <li><label><input type="checkbox">合併的人，確認 Plus 已取消（手機訂閱要本人取消）</label></li>
       <li><label><input type="checkbox">問題整理進 FAQ</label></li>
     </ul>
@@ -1150,12 +1149,12 @@ a{color:var(--accent)}
     'Plus 是個人自己訂的工具，Business 是公司的共用工作區。日常 AI 能力很多相同，差別在協作範圍、公司管理和資料處理的預設。',
     '3 個常見誤解。最重要的是第 1 個：不拿去訓練，不代表機密可以放進去。',
     '每個人的情況不同，搬家方法也不同。回答 2 個問題就知道自己走哪條路線。開通前會請大家填問卷，確認帳號。',
-    '開通當天每個人都要做的 4 件事。特別是多重驗證：一定要開，開了不要自己關；卡住先找詩雅。',
+    '開通當天每個人都要做的 4 件事。多重驗證（MFA）不用另外設定；登入卡住時不要另開帳號，先請教詩雅。',
     '路線 A：個人帳號是用公司信箱註冊的人，可以一鍵合併。合併不能復原，所以先刪掉私人的對話、存好重要的東西。網頁付費的 Plus 會自動取消並退款。',
     '路線 B：個人帳號是 Gmail 的人，兩個帳號不同，用提示語把工作上的記憶整理好，再放進公司帳號。個人帳號可以保留給私人用。',
     '合併和手動的差別：合併幾乎都會自動搬過來；手動要自己整理和重建。',
     '只要記得 3 個約定：個資和密碼不放、答案看過再用、工作用公司帳號。完整的規範定稿後再公布。',
-    '時程：12 月經營會成員先開始，1 月分批開通，春節前全員完成。任何問題都可以找詩雅，完整步驟在「完整手冊」。'
+    '時程：12 月經營會成員先開始，1 月分批開通，春節前全員完成。任何問題都可以請教詩雅，完整步驟在「完整手冊」。'
   ];
   var isDeck=function(){return DE.classList.contains('deck');};
   function fit(){var s=Math.min(innerWidth/1600,innerHeight/900);stage.style.transform='translate(-50%,-50%) scale('+s+')';}
